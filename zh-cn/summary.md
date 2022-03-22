@@ -1,7 +1,6 @@
 * 序言
   
   * [项目介绍](zh-cn/README.md)
-  * [项目特性](zh-cn/project-features.md)
   * [工作原理](zh-cn/working-principle.md)
   * [技术交流](zh-cn/technical-communication.md)
 
