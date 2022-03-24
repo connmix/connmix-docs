@@ -36,7 +36,9 @@ Push
 {"method":"queue.pop","params":[{"client_id":"1463819408261513216","queue":"foo","data":{"ctx":[],"msg":"foo"}}],"id":null}
 ```
 
-### 取消队列消费，暂时只支持取消全部
+### 取消队列消费
+
+暂时只支持取消全部
 
 Request
 
