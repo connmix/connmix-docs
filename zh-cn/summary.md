@@ -9,7 +9,7 @@
   * [安装引擎](zh-cn/install-engine.md)
   * [修改配置](zh-cn/modify-configuration.md)
   * [安装协议](zh-cn/install-protocols.md)
-  * [调试代码](zh-cn/debug-code.md)
+  * [启动调试](zh-cn/start-debug.md)
 
 * 引擎部署
 
@@ -25,7 +25,7 @@
 
 * 客户端SDK
 
-  * [WebSocket API](zh-cn/sdk-websocket.md)
+  * [WebSocket API](zh-cn/websocket-api.md)
   * [PHP SDK](zh-cn/sdk-php.md)
   * [Go SDK](zh-cn/sdk-go.md)
   * [Java SDK](zh-cn/sdk-java.md)

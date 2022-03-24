@@ -15,8 +15,8 @@
 ```
 
 - 打开入口文件 `lua\entry.lua`
-- 该入口使用了 `protocols/websocket` 协议
-- `require("prettyprint")` 是 lua 生态的一个库，很多lua生态的库可以直接使用
+- 该入口使用了官方提供的 `protocols/websocket` 协议
+- `prettyprint` 是 lua 生态的一个库，很多lua生态的库可以直接使用
 - 每个 lua 入口文件都必须包含这些方法：`init`、`on_connect`、`protocol_input`、`on_close`、`protocol_input`、`protocol_decode`、`protocol_encode`、`on_message`
 - 我们可以像写代码一样在入口文件中编写一些协议处理的逻辑，其中 `mix.` 前缀的内置包名是 connmix 提供的 Lua API，可以使用它完成很多高级开发。
 - 比如：下面代码中我们在 `init` 方法中创建了一个 100 尺寸的 `foo` 内存队列。
