@@ -19,9 +19,10 @@
 
 * 自定义协议
 
-  * [Lua API](zh-cn/lua-api.md)
+  * [入口文件](zh-cn/entry-file.md)
   * [定制通讯协议](zh-cn/custom-protocols.md)
   * [开源通讯协议](zh-cn/opensource-protocols.md)
+  * [Lua API](zh-cn/lua-api.md)
 
 * 客户端SDK
 

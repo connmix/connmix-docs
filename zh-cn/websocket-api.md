@@ -16,7 +16,7 @@ Response
 {"error":null,"result":["pong"],"id":12345}
 ```
 
-### 消费队列
+### 队列消费
 
 Request
 
