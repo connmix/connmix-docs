@@ -28,7 +28,9 @@
 
 ## 部署 `engine` 节点
 
-- 需要先启动 `center` 节点，才能成功启动 `engine` 节点
+- 需要先启动 `center` 节点，才能成功启动 `engine` 节点。
+- 你可以启动任意个 `engine` 节点，只要在你的许可证数量之内。
+- 启动新的节点，无需重启 connmix sdk 进程，他们会自动发现新的节点。
 
 ```shell
 % bin/connmix engine -f conf/connmix.yaml -p 2

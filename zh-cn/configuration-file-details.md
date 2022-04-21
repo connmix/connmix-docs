@@ -9,8 +9,8 @@ log:
   level: info # (debug,info,warn,error) 修改后生效
 
 licenses:
-  activation_code:
-  server: https://connmix.com
+  activation_code:             # 热更新，错误信息将导致节点退出
+  server: https://connmix.com  # 热更新，错误信息将导致节点退出
 
 center:
   registry:
