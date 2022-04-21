@@ -1,4 +1,12 @@
-# Lua API
+## 定制协议
+
+通过 `Lua API` 我们可以非常容易的定制自己的网络通讯协议。
+
+## 入口文件
+
+每个 lua 入口文件都必须包含这些方法：`init`、`on_connect`、`protocol_input`、`on_close`、`protocol_input`、`protocol_decode`、`protocol_encode`、`on_message`
+
+## Lua API
 
 `mix` 全局模块方法
 
