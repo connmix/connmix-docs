@@ -9,7 +9,7 @@
   * [安装引擎](zh-cn/install-engine.md)
   * [修改配置](zh-cn/modify-configuration.md)
   * [安装协议](zh-cn/install-protocols.md)
-  * [启动调试](zh-cn/start-debug.md)
+  * [开发调试](zh-cn/start-debug.md)
 
 * 引擎部署
 

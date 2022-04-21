@@ -42,10 +42,10 @@ function on_close(err, conn)
     --print(err)
 end
 
---bufcopy为一个对象
+--buf为一个对象，是一个副本
 --返回值必须为int, 返回包截止的长度 0=继续等待,-1=断开连接
-function protocol_input(bufcopy, conn)
-    return websocket.input(bufcopy, conn, "/")
+function protocol_input(buf, conn)
+    return websocket.input(buf, conn, "/")
 end
 
 --返回值支持任意类型, 当返回数据为nil时，on_message将不会被触发
@@ -65,7 +65,7 @@ function on_message(data, conn)
         return
     end
 
-    s, err = mix.json_encode({ msg = data, ctx = conn:context() })
+    s, err = mix.json_encode({ frame = data })
     if err then
        mix_log(mix_DEBUG, "json_encode error: " .. err)
        return

@@ -1,4 +1,4 @@
-# 启动调试
+## 启动引擎
 
 在开发阶段，我们使用 `dev` 模式，该模式会把 Center、Engine 两种节点一同启动，同时无需授权也拥有2CPU的执行能力。
 
@@ -16,45 +16,70 @@
         
         connmix1.0.1, go1.17.5, lua5.1+bit64, darwin, arm64
 
-2022-03-24 22:01:33.192724      WARN    commands/welcome.go:30  cpu underutilized, max_procs: 2, device_cpus: 8
-2022-03-24 22:01:33.194576      INFO    registry/server.go:42   start the registry server (0.0.0.0:6786)
-2022-03-24 22:01:33.194834      INFO    mesh/server.go:41       start the mesh node (0.0.0.0:6788)
-2022-03-24 22:01:33.195094      INFO    ws/server.go:152        start the api server (0.0.0.0:6789)
-2022-03-24 22:01:33.197122      INFO    protocol/registrycli.go:36      center registry 127.0.0.1:6786 connect successful
-2022-03-24 22:01:33.197143      INFO    protocol/registrycli.go:76      register engine node_id c8u7jfbin5659oh0b13g
-2022-03-24 22:01:33.197894      INFO    registry/registry.go:118        register node 192.168.2.101 node_id c8u7jfbin5659oh0b13g
-2022-03-24 22:01:33.198072      INFO    protocol/servers.go:96  start the protocol server /Users/liujian/Documents/mycode/connmix/lua/entry.lua (0.0.0.0:6790)
+2022-04-21 23:09:22.050391      WARN    commands/welcome.go:30  cpu underutilized, max_procs: 2, device_cpus: 8
+2022-04-21 23:09:22.050759      INFO    center/server.go:46     start the center server 0.0.0.0:6787
+2022-04-21 23:09:22.050852      INFO    registry/server.go:42   start the registry server (0.0.0.0:6786)
+2022-04-21 23:09:22.050915      INFO    mesh/server.go:41       start the mesh point (0.0.0.0:6788)
+2022-04-21 23:09:22.050932      INFO    ws/server.go:152        start the api server (0.0.0.0:6789)
+2022-04-21 23:09:22.051414      INFO    lua/registrycli.go:36   center registry 127.0.0.1:6786 connect successful
+2022-04-21 23:09:22.051433      INFO    lua/registrycli.go:76   register engine node_id c9gn78jin5670olm1rhg
+2022-04-21 23:09:22.051858      INFO    registry/registry.go:118        register node 192.168.1.12 node_id c9gn78jin5670olm1rhg
+2022-04-21 23:09:22.052021      INFO    lua/servers.go:96       start the lua server /Users/liujian/Documents/mycode/connmix/lua/entry.lua (0.0.0.0:6790)
+2022-04-21 23:09:22.508174      INFO    ws/server.go:39 192.168.1.12:53033 websocket upgrade successfully
 ```
 
-我们的入口文件 `lua/entry.lua` 执行的服务在 `6790` 端口，采用的是 `websocket` 协议，我们来测试一下。
+我们的入口文件 `lua/entry.lua` 执行的服务在 `6790` 端口，采用的是 `websocket` 协议。
+
+## 编写业务逻辑
+
+我们使用 [connmix-php](https://packagist.org/packages/connmix/connmix) 客户端来编写业务逻辑。
+
+- 业务逻辑：当我们接收的消息是 `consume` 类型时，我们回复该消息。
+- 查看更多 [PHP 客户端功能](/zh-cn/sdk-php)
+- 基于 connmix 的客户端，我们可以使用各种语言编写业务逻辑。
+
+```php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$client = \Connmix\ClientBuilder::create()
+    ->setHost('127.0.0.1:6787')
+    ->build();
+$onFulfilled = function (\Connmix\AsyncNodeInterface $node) {
+    $message = $node->message();
+    switch ($message->type()) {
+        case "consume":
+            $clientID = $message->clientID();
+            $data = $message->data();
+            $node->meshSend($clientID, sprintf("received: %s", $data['frame']['data'] ?? ''));
+            break;
+        case "result":
+            $success = $message->success();
+            $fail = $message->fail();
+            $total = $message->total();
+            break;
+        case "error":
+            $error = $message->error();
+            break;
+        default:
+            $payload = $message->rawMessage();
+    }
+};
+$onRejected = function (\Throwable $e) {
+    // handle error
+};
+$client->consume('foo')->then($onFulfilled, $onRejected);
+```
+
+## 测试
 
 - 使用工具：http://www.easyswoole.com/wstool.html
 - 我们连接 `ws://127.0.0.1:6790`
 - 连接成功，并向该连接发送消息：`test`
+- 我们将会收到 php 回复的 `received: test`
 
-![](images/图1.png)
+![](images/图5.png)
 
-接下来我们连接 API Server 来消费这个消息，ApiServer 的端口为 `6789`，也是 `websocket` 协议。
 
-- 开启一个新网页打开 `wstool.html`
-- 我们连接 `ws://127.0.0.1:6789/ws/v1`
-- 发送消息: `{"method":"queue.consume","params":["foo"],"id":12345}`
-- 然后我们收到了 `6790` 端口客户端发送的数据：`{"data":"test","finish":true,"type":"text"}` 和客户端连接的 `headers`
-- 消息中包含一个 `client_id` 字段，该字段整个集群唯一，我们可以通过这个ID给这个连接回复消息。
-- 当客户端再次发送消息时，这里将自动再次收到新的消息。
 
-![](images/图2.png)
-
-接下来我们通过 ApiServer 给图1的连接响应 `hello, world!`
-
-- 发送消息：`{"method":"mesh.send","params":[{"client_id":"***","data":"hello, world!"}],"id":12345}`，消息中的 `client_id` 要替换为上图你收到的内容
-- 这个过程要快一些，因为图1的连接会在 `60s` 被服务器断开，因为 `connmix.yaml` 中配置了这个超时。
-- 如果发送失败，就是因为这个 `client_id` 已经断线了，需要重复上面的全部过程。
-
-![](images/图3.png)
-
-- 成功后，你在图1的连接将会收到我们通过 ApiServer 发送给客户端的消息：`hello, world!`
-
-![](images/图4.png)
-
-以上过程详细记录了 connmix 执行的基本流程，当然全部功能远不止这些，还有 pubsub, context 等更多玩法，[[查看更多]](/zh-cn/websocket-api)。
