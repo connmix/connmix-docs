@@ -11,7 +11,7 @@
     - port: 6790
       bind: 0.0.0.0
       entry: lua/entry.lua
-      bytecode_expires: 10
+      bytecode_expires: 10    # 设置0关闭热更新
       read_buffer_size: 1024  # 修改后对新连接生效
       read_timeout: 60        # 修改后对新连接生效
       write_timeout: 10       # 修改后对新连接生效
