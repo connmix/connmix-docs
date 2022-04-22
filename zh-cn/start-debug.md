@@ -32,11 +32,10 @@
 
 ## 编写业务逻辑
 
-我们使用 [connmix-php](https://packagist.org/packages/connmix/connmix) 客户端来编写业务逻辑。
+本次范例我们使用 [connmix-php](https://packagist.org/packages/connmix/connmix) 客户端来编写业务逻辑，基于 connmix 客户端，我们可以使用各种语言编写业务逻辑。
 
 - 业务逻辑：当我们接收的消息是 `consume` 类型时，我们回复该消息。
 - 查看更多 [PHP 客户端功能](/zh-cn/sdk-php)
-- 基于 connmix 的客户端，我们可以使用各种语言编写业务逻辑。
 
 ```php
 <?php

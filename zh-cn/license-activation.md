@@ -13,3 +13,8 @@ licenses:
   activation_code: ***
   server: https://connmix.com
 ```
+
+## 授权高可用
+
+- 授权成功后，许可证授权信息会保存在本地，通常有效期为 `14` 天，因此即便 `https://connmix.com` 被攻击依然不会影响到服务的执行。
+- 即便攻击超过 `14` 天，我们也会提供备用站点激活。
