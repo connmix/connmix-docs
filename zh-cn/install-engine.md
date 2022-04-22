@@ -1,6 +1,6 @@
 # 安装引擎
 
-- 下载安装包：https://www.connmix.com/developer
+- 下载安装包：https://connmix.com/developer
 - 解压后安装到 `/usr/local/connmix-v1.0.1` 系统目录
 
 ```
