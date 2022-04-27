@@ -47,7 +47,7 @@ $client = \Connmix\ClientBuilder::create()
     ->build();
 $onConnect = function (\Connmix\AsyncNodeInterface $node) {
     // 消费内存队列
-    $node->queueConsume('foo');
+    $node->consume('foo');
 };
 $onReceive = function (\Connmix\AsyncNodeInterface $node) {
     $message = $node->message();
@@ -66,7 +66,7 @@ $onReceive = function (\Connmix\AsyncNodeInterface $node) {
             $error = $message->error();
             break;
         default:
-            $payload = $message->rawMessage();
+            $payload = $message->payload();
     }
 };
 $onError = function (\Throwable $e) {
