@@ -58,18 +58,18 @@ Request
 {"method":"queue.unconsume","params":[],"id":12345}
 ```
 
+Response
+
+```json
+{"error":null,"result":{"success":true},"id":12345}
+```
+
 Error
 
 - `203` 取消消费失败
 
 ```json
 {"error":{"code":202,"message":"*****"},"id":12345}
-```
-
-Response
-
-```json
-{"error":null,"result":{"success":true},"id":12345}
 ```
 
 ### 远程执行 `conn` 设置上下文
