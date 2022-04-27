@@ -1,6 +1,6 @@
 ## 简介
 
-connmix 是一个基于 golang + lua 开发的面向消息编程的分布式自定义协议引擎，通讯协议可以像 openresty 一样使用 lua 编程，该平台可快速接入到 java,php,go,py,nodejs,c# 等任意编程语言开发的现有系统。
+connmix 是一个基于 golang + lua 开发的面向消息编程的分布式自定义协议引擎，通讯协议可以像 openresty(ngx_lua) 一样使用 lua 编程，该平台可快速接入到 java,php,go,py,nodejs,c# 等任意编程语言开发的现有系统。
 
 ## 使用场景
 
