@@ -3,7 +3,7 @@
 - 没有特殊标注的配置，都无法热更新，需要重启引擎才能生效
 
 ```yaml
-log:
+logging:
   filename: logs/connmix.log
   max_files: 7
   level: info # (debug,info,warn,error) 修改后生效
@@ -25,8 +25,7 @@ engine:
   mesh_point:
     port: 6788
     bind: 0.0.0.0
-  control:
-    protocol: websocket
+  api_server:
     port: 6789
     bind: 0.0.0.0
     read_buffer_size: 1024  # 修改后对新连接生效
