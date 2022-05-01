@@ -72,12 +72,21 @@ Error
 {"error":{"code":202,"message":"*****"},"id":12345}
 ```
 
+
 ### 远程执行 `conn` 设置上下文
 
 Request
 
+- `set_context_value`
+
 ```json
 {"method":"conn.call","params":[{"client_id":"1458271556210786304","func":"set_context_value","args":["user_id",10000]}],"id":12345}
+```
+
+- `set_context`
+
+```json
+{"method":"conn.call","params":[{"client_id":"1458271556210786304","func":"set_context","args":[{"user_id":10000}]}],"id":12345}
 ```
 
 Response
@@ -99,8 +108,16 @@ Error
 
 Request
 
+- `subscribe`
+
 ```json
 {"method":"conn.call","params":[{"client_id":"1463784730422935552","func":"subscribe","args":["channel1","channel2"]}],"id":12345}
+```
+
+- `unsubscribe`
+
+```json
+{"method":"conn.call","params":[{"client_id":"1463784730422935552","func":"unsubscribe","args":["channel1","channel2"]}],"id":12345}
 ```
 
 Response
