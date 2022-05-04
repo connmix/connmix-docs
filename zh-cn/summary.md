@@ -10,7 +10,7 @@
   * [修改配置](zh-cn/modify-configuration.md)
   * [安装协议](zh-cn/install-protocols.md)
   * [开发调试](zh-cn/start-debug.md)
-  * [范例源码](zh-cn/examples.md)
+  * [示例源码](zh-cn/examples.md)
 
 * 引擎部署
 
