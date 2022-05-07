@@ -33,7 +33,7 @@ $onConnect = function (\Connmix\AsyncNodeInterface $node) {
     // 消费内存队列
     $node->consume('foo');
 };
-$onReceive = function (\Connmix\AsyncNodeInterface $node) {
+$onMessage = function (\Connmix\AsyncNodeInterface $node) {
     $message = $node->message();
     switch ($message->type()) {
         case "consume":
@@ -57,7 +57,8 @@ $onReceive = function (\Connmix\AsyncNodeInterface $node) {
 $onError = function (\Throwable $e) {
     // handle error
 };
-$client->do($onConnect, $onReceive, $onError);
+$client->on($onConnect, $onMessage, $onError);
+$client->run();
 ```
 
 ## 设置上下文
