@@ -16,6 +16,7 @@
 | n, err = mix.redis.push(queue, data)     | lpush, yaml中配置连接信息                    |
 | n, err = mix.redis.llen(key)             |                                       |
 | s, err = mix.redis.set(key, val, expire) |                                       |
+| s, err = mix.redis.get(key)              |                                       |
 | n, err = mix.redis.incr(key, num)        |                                       |
 | n, err = mix.redis.decr(key, num)        |                                       |
 | s, err = mix.json_encode(data)           |                                       |
