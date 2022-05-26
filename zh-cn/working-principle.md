@@ -13,7 +13,13 @@
 
 ## 引擎节点
 
+内存队列
+
 ![](images/原理图2.drawio.png)
+
+Redis队列
+
+![](images/原理图3.drawio.png)
 
 - Server 负责对外提供服务，接受和响应TCP数据，每个 Server 执行一套 Lua 代码，启动一个独立的 Lua VM 负责解析TCP数据流，完成特定的网络协议解析，如：websocket、http 等。
 - Lua VM 中的自定义协议代码，通过 Lua API 可以将解析后的数据 push 到内存队列 MQ 中。
