@@ -34,7 +34,7 @@ Request
 
 ```json
 {
-  "m": "queue.consume",
+  "m": "queue.pop",
   "p": [
     "foo"
   ],
@@ -74,7 +74,7 @@ Event
 
 ```json
 {
-  "e": "queue.consume",
+  "e": "queue.pop",
   "p": {
     "c": "1463819408261513216",
     "t": "foo",
@@ -95,7 +95,7 @@ Request
 
 ```json
 {
-  "m": "queue.unconsume",
+  "m": "queue.unpop",
   "p": [],
   "i": 12345
 }
