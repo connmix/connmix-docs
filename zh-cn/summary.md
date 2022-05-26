@@ -20,7 +20,7 @@
 
 * 自定义协议
 
-  * [定制通讯协议](zh-cn/custom-protocols.md)
+  * [Lua协议编程](zh-cn/custom-protocols.md)
   * [开源通讯协议](zh-cn/opensource-protocols.md)
 
 * 客户端SDK
