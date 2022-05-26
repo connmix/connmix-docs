@@ -4,29 +4,33 @@
 
 ## 入口文件
 
-每个 lua 入口文件都必须包含这些方法：`init`、`on_connect`、`protocol_input`、`on_close`、`protocol_input`、`protocol_decode`、`protocol_encode`、`on_message`
+每个 lua 入口文件都必须包含这些方法：`on_connect`、`protocol_input`、`on_close`、`protocol_input`、`protocol_decode`、`protocol_encode`、`on_message`
 
 ## Lua API
 
 `mix` 全局模块方法
 
-|  方法   | 描述  |
-|  ----  | ----  |
-| mix.queue.new(name, size)  |  |
-| n, err = mix.queue.push(name, data)  |  |
-| s, err = mix.json_encode(data)  |  |
-| tb, err = mix.json_decode(str)  |  |
-| s = mix.base64_encode(data)  |  |
-| s, err = mix.base64_decode(str)  |  |
-| s, err = mix.php_pack(format, args+)  |  |
-| tb, err = mix.php_unpack(format, data)  |  |
-| tb = mix.str_split(str, sep)  |  |
-| s = mix.bytes_tostring(bytes_table)  |  |
-| s = mix.md5(data)  |  |
-| s = mix.md5_bin(data)  |  |
-| s = mix.sha1(data)  |  |
-| s = mix.sha1_bin(data)  |  |
-| b = mix.log(mix.INFO, msg)  | mix.DEBUG,mix.INFO,mix.WARN,mix.ERROR |
+| 方法                                       | 描述                                    |
+|------------------------------------------|---------------------------------------|
+| n, err = mix.queue.push(queue, data)     | yaml中配置max,size                       |
+| n, err = mix.redis.push(queue, data)     | lpush, yaml中配置连接信息                    |
+| n, err = mix.redis.llen(key)             |                                       |
+| s, err = mix.redis.set(key, val, expire) |                                       |
+| n, err = mix.redis.incr(key, num)        |                                       |
+| n, err = mix.redis.decr(key, num)        |                                       |
+| s, err = mix.json_encode(data)           |                                       |
+| tb, err = mix.json_decode(str)           |                                       |
+| s = mix.base64_encode(data)              |                                       |
+| s, err = mix.base64_decode(str)          |                                       |
+| s, err = mix.php_pack(format, args+)     |                                       |
+| tb, err = mix.php_unpack(format, data)   |                                       |
+| tb = mix.str_split(str, sep)             |                                       |
+| s = mix.bytes_tostring(bytes_table)      |                                       |
+| s = mix.md5(data)                        |                                       |
+| s = mix.md5_bin(data)                    |                                       |
+| s = mix.sha1(data)                       |                                       |
+| s = mix.sha1_bin(data)                   |                                       |
+| b = mix.log(mix.INFO, msg)               | mix.DEBUG,mix.INFO,mix.WARN,mix.ERROR |
 
 `mix.conn` 对象方法
 

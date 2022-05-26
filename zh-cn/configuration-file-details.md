@@ -9,8 +9,8 @@ logging:
   level: info # (debug,info,warn,error) 修改后生效
 
 licenses:
-  activation_code:             # 热更新，错误信息将导致节点退出
-  server: https://connmix.com  # 热更新，错误信息将导致节点退出
+  activation_code:
+  server: https://connmix.com
 
 center:
   registry:
@@ -21,17 +21,30 @@ center:
     bind: 0.0.0.0
 
 engine:
-  center_registry: 127.0.0.1:6786
+  center_registry: localhost:6786
   mesh_point:
     port: 6788
     bind: 0.0.0.0
   api_server:
     port: 6789
     bind: 0.0.0.0
-    read_buffer_size: 1024  # 修改后对新连接生效
-    write_buffer_size: 1024 # 修改后对新连接生效
+    read_buffer_size: 4096  # 修改后对新连接生效
+    write_buffer_size: 4096 # 修改后对新连接生效
     read_timeout: 600       # 修改后对新连接生效
     write_timeout: 10       # 修改后对新连接生效
+  luavm:
+    queue:
+      max: 100
+      size: 2000
+      full: block # (block,error)
+    redis:
+      addr: localhost:6379
+      password:
+      db: 0
+      pool_size: 20
+      min_idle_conns: 10
+      max_conn_age: 0
+      idle_timeout: 300
   servers:
     - port: 6790
       bind: 0.0.0.0

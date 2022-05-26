@@ -17,9 +17,8 @@
 - 打开入口文件 `lua\entry.lua`
 - 该入口使用了官方提供的 `protocols/websocket` 协议
 - `prettyprint` 是 lua 生态的一个库，很多lua生态的库可以直接使用
-- 每个 lua 入口文件都必须包含这些方法：`init`、`on_connect`、`protocol_input`、`on_close`、`protocol_input`、`protocol_decode`、`protocol_encode`、`on_message`
+- 每个 lua 入口文件都必须包含这些方法：`on_connect`、`protocol_input`、`on_close`、`protocol_input`、`protocol_decode`、`protocol_encode`、`on_message`
 - 我们可以像写代码一样在入口文件中编写一些协议处理的逻辑，其中 `mix.` 前缀的内置包名是 connmix 提供的 Lua API，可以使用它完成很多高级开发。
-- 比如：下面代码中我们在 `init` 方法中创建了一个 100 尺寸的 `foo` 内存队列。
 - 在 `on_message` 方法中我们将收到的消息 json 序列化后 push 到了内存队列 `foo` 中。
 - 接下来我们就可以通过 ApiServer/Client SDK 来消费这个数据，并针对 client_id 来响应数据。
 
@@ -28,11 +27,8 @@ require("prettyprint")
 local mix_log = mix.log
 local mix_DEBUG = mix.DEBUG
 local websocket = require("protocols/websocket")
-local queue_name = "foo"
-
-function init()
-    mix.queue.new(queue_name, 100)
-end
+local mix_push = mix.queue.push
+local topic = "foo"
 
 function on_connect(conn)
     --print(conn:client_id())
@@ -42,10 +38,14 @@ function on_close(err, conn)
     --print(err)
 end
 
+function on_handshake(headers, conn)
+    --print(headers)
+end
+
 --buf为一个对象，是一个副本
 --返回值必须为int, 返回包截止的长度 0=继续等待,-1=断开连接
 function protocol_input(buf, conn)
-    return websocket.input(buf, conn, "/")
+    return websocket.input(buf, conn, "/", on_handshake)
 end
 
 --返回值支持任意类型, 当返回数据为nil时，on_message将不会被触发
@@ -65,15 +65,10 @@ function on_message(data, conn)
         return
     end
 
-    s, err = mix.json_encode({ frame = data })
-    if err then
-       mix_log(mix_DEBUG, "json_encode error: " .. err)
-       return
-    end
-
-    n, err = mix.queue.push(queue_name, s)
+    n, err = mix_push(topic, { frame = data })
     if err then
        mix_log(mix_DEBUG, "queue push error: " .. err)
+       conn:close()
        return
     end
 end
