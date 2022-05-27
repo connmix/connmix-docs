@@ -79,8 +79,13 @@ Event
     "c": "1463819408261513216",
     "t": "foo",
     "d": {
-      "ctx": [],
-      "msg": "foo"
+      "event": "message",
+      "frame": {
+        "type": "text",
+        "data": "json str",
+        "finish": true
+      },
+      "uid": "100001"
     }
   },
   "id": null
