@@ -5,11 +5,11 @@
 ```yaml
 logging:
   filename: logs/connmix.log
-  max_files: 7
-  level: info # (debug,info,warn,error) 修改后生效
+  maxFiles: 7
+  level: debug # (debug,info,warn,error) 修改后生效
 
 licenses:
-  activation_code:
+  activationCode:
   server: https://connmix.com
 
 center:
@@ -21,36 +21,43 @@ center:
     bind: 0.0.0.0
 
 engine:
-  center_registry: localhost:6786
-  mesh_point:
+  centerRegistry: localhost:6786
+  meshPoint:
     port: 6788
     bind: 0.0.0.0
-  api_server:
+  apiServer:
     port: 6789
     bind: 0.0.0.0
-    read_buffer_size: 4096  # 修改后对新连接生效
-    write_buffer_size: 4096 # 修改后对新连接生效
-    read_timeout: 600       # 修改后对新连接生效
-    write_timeout: 10       # 修改后对新连接生效
+    username:
+    password:
+    readBufferSize: 40096  # 修改后对新连接生效
+    writeBufferSize: 40096 # 修改后对新连接生效
+    readTimeout: 60        # 修改后对新连接生效
+    writeTimeout: 60       # 修改后对新连接生效
   luavm:
     queue:
       max: 100
       size: 2000
-      full: block # (block,error)
     redis:
-      addr: localhost:6379
-      password:
-      db: 0
-      pool_size: 20
-      min_idle_conns: 10
-      max_conn_age: 0
-      idle_timeout: 300
+      - name: default
+        addr: localhost:6379
+        password:
+        db: 0
+        poolSize: 20
+        minIdleConns: 10
+        maxConnAge: 0
+        idleTimeout: 300
   servers:
     - port: 6790
       bind: 0.0.0.0
-      entry: lua/entry.lua
-      bytecode_expires: 10    # 设置0关闭热更新
-      read_buffer_size: 1024  # 修改后对新连接生效
-      read_timeout: 60        # 修改后对新连接生效
-      write_timeout: 10       # 修改后对新连接生效
+      protocol: websocket    # (websocket,custom)
+      options:
+        - name: path
+          value: /chat
+      entry: lua/entry.websocket.lua
+      bytecodeExpires: 10    # 设置0关闭热更新
+      readBufferSize: 1024   # 修改后对新连接生效
+      writeBufferSize: 1024  # 修改后对新连接生效
+      readTimeout: 60        # 修改后对新连接生效
+      writeTimeout: 10       # 修改后对新连接生效
 ```

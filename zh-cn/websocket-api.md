@@ -1,6 +1,97 @@
-## API 协议
+# HTTP / WebSocket API 协议
 
-掌握该协议，用户可以自己定制 connmix 客户端，普通用户直接使用官方客户端即可。
+## HTTP API
+
+> 协议：`http` 默认端口：`6789` 路径: `/v1`
+
+### 网格发送：可以发送给整个网格的任意机器的客户端连接
+
+> POST `/v1/mesh/send`
+
+Request
+
+- `c` 客户端 client_id
+- `d` 发送的数据
+- `t` 消息类型: binary类型需要使用base64编码data，默认为text类型
+
+```json
+{
+  "c": "1463786910324359168",
+  "d": "data"
+}
+```
+
+Response
+
+```json
+{
+  "E": null,
+  "r": {
+    "s": true
+  }
+}
+```
+
+Error
+
+- `101` 无效参数
+- `401` 发送失败
+
+```json
+{
+  "E": {
+    "c": 401,
+    "m": "*****"
+  }
+}
+```
+
+### 网格发布：可以发送给整个网格内所有订阅了这些频道的客户端连接
+
+> POST `/v1/mesh/publish`
+
+Request
+
+- `c` 通道
+- `d` 发送的数据
+- `t` 消息类型: binary类型需要使用base64编码data，默认为text类型
+
+```json
+{
+  "c": "channel1",
+  "d": "data"
+}
+```
+
+Response
+
+- `s` 成功数量
+- `f` 失败数量
+
+```json
+{
+  "E": null,
+  "r": {
+    "s": 9,
+    "f": 0
+  }
+}
+```
+
+Error
+
+- `101` 无效参数
+
+```json
+{
+  "E": {
+    "c": 101,
+    "m": "*****"
+  }
+}
+```
+
+## WebSocket API
 
 > 协议：`websocket` 默认端口：`6789` 路径: `/ws/v1`
 
@@ -11,7 +102,7 @@ Request
 ```json
 {
   "m": "server.ping",
-  "p": [],
+  "p": {},
   "i": 12345
 }
 ```
@@ -22,7 +113,7 @@ Response
 {
   "E": null,
   "r": {
-    "s": "server.pong"
+    "m": "server.pong"
   },
   "i": 12345
 }
@@ -32,12 +123,16 @@ Response
 
 Request
 
+- `t` 消费的topic数组
+
 ```json
 {
   "m": "queue.pop",
-  "p": [
-    "foo"
-  ],
+  "p": {
+    "t": [
+      "topic1"
+    ]
+  },
   "i": 12345
 }
 ```
@@ -72,12 +167,16 @@ Error
 
 Event
 
+- `c` 客户端 client_id
+- `t` 消息来自哪个 topic
+- `d` 消息的数据
+
 ```json
 {
   "e": "queue.pop",
   "p": {
     "c": "1463819408261513216",
-    "t": "foo",
+    "t": "topic1",
     "d": {
       "event": "message",
       "frame": {
@@ -94,14 +193,14 @@ Event
 
 ### 取消队列消费
 
-> 暂时只支持取消全部
+注意：暂时只支持取消全部
 
 Request
 
 ```json
 {
   "m": "queue.unpop",
-  "p": [],
+  "p": {},
   "i": 12345
 }
 ```
@@ -125,52 +224,56 @@ Error
 ```json
 {
   "E": {
-    "c": 202,
+    "c": 203,
     "m": "*****"
   },
   "i": 12345
 }
 ```
 
-### 远程执行 `conn` 设置上下文
+### 远程设置连接上下文
 
 Request
 
-- `set_context_value`
+> `set_context_value`
+
+- `c` 客户端 client_id
+- `f` 执行的函数名称
+- `a` 执行函数的参数
 
 ```json
 {
   "m": "conn.call",
-  "p": [
-    {
-      "c": "1458271556210786304",
-      "f": "set_context_value",
-      "a": [
-        "user_id",
-        10000
-      ]
-    }
-  ],
+  "p": {
+    "c": "1458271556210786304",
+    "f": "set_context_value",
+    "a": [
+      "user_id",
+      10000
+    ]
+  },
   "i": 12345
 }
 ```
 
-- `set_context`
+> `set_context`
+
+- `c` 客户端 client_id
+- `f` 执行的函数名称
+- `a` 执行函数的参数
 
 ```json
 {
   "m": "conn.call",
-  "p": [
-    {
-      "c": "1458271556210786304",
-      "f": "set_context",
-      "a": [
-        {
-          "user_id": 10000
-        }
-      ]
-    }
-  ],
+  "p": {
+    "c": "1458271556210786304",
+    "f": "set_context",
+    "a": [
+      {
+        "user_id": 10000
+      }
+    ]
+  },
   "i": 12345
 }
 ```
@@ -202,44 +305,48 @@ Error
 }
 ```
 
-### 远程执行 `conn` 订阅频道
+### 远程操作连接订阅频道
 
 Request
 
-- `subscribe`
+> `subscribe`
+
+- `c` 客户端 client_id
+- `f` 执行的函数名称
+- `a` 执行函数的参数
 
 ```json
 {
   "m": "conn.call",
-  "p": [
-    {
-      "c": "1463784730422935552",
-      "f": "subscribe",
-      "a": [
-        "channel1",
-        "channel2"
-      ]
-    }
-  ],
+  "p": {
+    "c": "1463784730422935552",
+    "f": "subscribe",
+    "a": [
+      "channel1",
+      "channel2"
+    ]
+  },
   "i": 12345
 }
 ```
 
-- `unsubscribe`
+> `unsubscribe`
+
+- `c` 客户端 client_id
+- `f` 执行的函数名称
+- `a` 执行函数的参数
 
 ```json
 {
   "m": "conn.call",
-  "p": [
-    {
-      "c": "1463784730422935552",
-      "f": "unsubscribe",
-      "a": [
-        "channel1",
-        "channel2"
-      ]
-    }
-  ],
+  "p": {
+    "c": "1463784730422935552",
+    "f": "unsubscribe",
+    "a": [
+      "channel1",
+      "channel2"
+    ]
+  },
   "i": 12345
 }
 ```
@@ -275,15 +382,17 @@ Error
 
 Request
 
+- `c` 客户端 client_id
+- `d` 发送的数据
+- `t` 消息类型: binary类型需要使用base64编码data，默认为text类型
+
 ```json
 {
   "m": "mesh.send",
-  "p": [
-    {
-      "c": "1463786910324359168",
-      "d": "123456789"
-    }
-  ],
+  "p": {
+    "c": "1463786910324359168",
+    "d": "data"
+  },
   "id": 12345
 }
 ```
@@ -294,9 +403,7 @@ Response
 {
   "E": null,
   "r": {
-    "s": true,
-    "f": 0,
-    "t": 1
+    "s": true
   },
   "i": 12345
 }
@@ -321,28 +428,32 @@ Error
 
 Request
 
+- `c` 通道
+- `d` 发送的数据
+- `t` 消息类型: binary类型需要使用base64编码data，默认为text类型
+
 ```json
 {
   "m": "mesh.publish",
-  "p": [
-    {
-      "c": "channel1",
-      "d": "123456789"
-    }
-  ],
+  "p": {
+    "c": "channel1",
+    "d": "data"
+  },
   "i": 12345
 }
 ```
 
 Response
 
+- `s` 成功数量
+- `f` 失败数量
+
 ```json
 {
   "E": null,
   "r": {
-    "s": true,
-    "f": 0,
-    "t": 9
+    "s": 9,
+    "f": 0
   },
   "i": 12345
 }
@@ -355,7 +466,7 @@ Error
 ```json
 {
   "E": {
-    "c": 401,
+    "c": 101,
     "m": "*****"
   },
   "i": 12345
