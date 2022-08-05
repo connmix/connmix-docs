@@ -13,16 +13,10 @@
 
 ## 引擎节点
 
-内存队列
-
 ![](images/原理图2.drawio.png)
 
-Redis队列
-
-![](images/原理图3.drawio.png)
-
-- Server 负责对外提供服务，接受和响应TCP数据，每个 Server 执行一套 Lua 代码，启动一个独立的 Lua VM 负责解析TCP数据流，完成特定的网络协议解析，如：websocket、http 等。
-- Lua VM 中的自定义协议代码，通过 Lua API 可以将解析后的数据 push 到内存队列 MQ 中。
-- Client SDK 与 Engine 节点通过 ApiServer 来通讯，目前是 websocket 协议 (text)，后续会扩展 binary。
-- 通过 Client SDK 我们可以使用任何语言来消费解析后的请求数据，消费完成后我们还可以通过 Client SDK 指定 client_id 来响应到对应的连接。
-- 如果响应的 client_id 不在本节点，Engine Node 将自动寻找到对应节点的 Mash Point 转发过去，因此我们使用时整个集群就像同一台机器一样方便。
+- Server 负责对外提供服务，根据配置的协议类型接受和响应数据，每个 Server 执行一套 Lua 代码，启动一个独立的 Lua VM 执行业务逻辑。
+- websocket 协议：Lua 代码中可以编写业务逻辑，比如：将上报的数据push到redis，或者订阅某个channel实现主动推送。
+- custom 协议：除了业务逻辑外，还可以使用Lua代码自定义网络通讯协议，通过 Lua API 可以解析协议内的数据。
+- 通过 ApiServer 我们可以调用 rest/websocket api 来完成主动推送。
+- 调用 ApiServer 执行 send,publish 时 client_id 如果不在本节点，Engine Node 将自动寻找到对应节点的 Mash Point 转发过去，因此我们使用时整个集群就像同一台机器一样方便，用户无需处理跨机器带来的分布式问题。
