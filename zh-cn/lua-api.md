@@ -11,12 +11,19 @@
 | s, err = mix.php_pack(format, args+)     |                                       |
 | tb, err = mix.php_unpack(format, data)   |                                       |
 | tb = mix.str_split(str, sep)             |                                       |
+| tb, err = mix.url_parse(url)             |                                       |
 | s = mix.bytes_tostring(bytes_table)      |                                       |
 | s = mix.md5(data)                        |                                       |
 | s = mix.md5_bin(data)                    |                                       |
 | s = mix.sha1(data)                       |                                       |
 | s = mix.sha1_bin(data)                   |                                       |
 | b = mix.log(mix.INFO, msg)               | mix.DEBUG,mix.INFO,mix.WARN,mix.ERROR |
+
+## `mix.server`
+
+| 方法                                                   | 描述                         |
+|-------------------------------------------------------|-----------------------------|
+| s = mix.server.option(name)                           |                             |
 
 ## `mix.conn`
 

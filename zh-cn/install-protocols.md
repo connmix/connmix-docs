@@ -87,7 +87,7 @@ end
 --buf为一个对象，是一个副本
 --返回值必须为int, 返回包截止的长度 0=继续等待,-1=断开连接
 function protocol_input(buf)
-    return websocket.input(buf, "/chat", on_handshake)
+    return websocket.input(buf, on_handshake)
 end
 
 --返回值支持任意类型, 当返回数据为nil时，on_message将不会被触发
