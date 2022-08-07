@@ -70,9 +70,9 @@ curl --location --request POST 'http://127.0.0.1:6789/v1/mesh/publish' \
 
 - 使用工具：http://www.easyswoole.com/wstool.html
 - 我们连接 `ws://127.0.0.1:6790/chat`
-- 连接成功，并向该连接发送消息：`{"room_id":1212}`
-- 我们将会收到回复的 `{"status":"success"}`
-- 调用 curl 主动推送后，将会收到消息 `{"msg":"Hello,World!"}`
+- 连接成功，并向该连接发送消息 `{"room_id":1212}`
+- 我们将会收到回复 `{"status":"success"}` 表示加入房间成功
+- 调用 curl 主动推送后，房间内的所有人将会收到消息 `{"msg":"Hello,World!"}`
 
 ![](images/图3.jpg)
 
