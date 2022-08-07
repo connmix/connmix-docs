@@ -10,7 +10,7 @@
 
 ```yaml
 licenses:
-  activation_code: ***
+  activationCode: ***
   server: https://connmix.com
 ```
 
