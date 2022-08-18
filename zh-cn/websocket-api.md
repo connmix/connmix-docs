@@ -99,26 +99,18 @@ Error
 
 ### Ping/Pong
 
+发送ping帧会回复pong帧，javascript可以使用以下方式
+
 Request
 
-```json
-{
-  "m": "server.ping",
-  "p": {},
-  "i": 12345
-}
+```
+ping
 ```
 
 Response
 
-```json
-{
-  "E": null,
-  "r": {
-    "m": "server.pong"
-  },
-  "i": 12345
-}
+```
+pong
 ```
 
 ### 消费队列
