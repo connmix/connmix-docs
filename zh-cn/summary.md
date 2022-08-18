@@ -15,7 +15,7 @@
 * 引擎部署
 
   * [授权激活](zh-cn/license-activation.md)
-  * [分布式部署](zh-cn/distributed-deployment.md)
+  * [集群部署](zh-cn/cluster-deployment.md)
   * [配置文件详解](zh-cn/configuration-file-details.md)
 
 * API
