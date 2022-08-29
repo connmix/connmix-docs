@@ -15,7 +15,7 @@
         - name: path
           value: /chat
       entry: lua/entry.websocket.lua
-      bytecodeExpires: 10    # 设置0关闭热更新
+      byteCodeExpires: 10    # 设置0关闭热更新
       readBufferSize: 1024   # 修改后对新连接生效
       writeBufferSize: 1024  # 修改后对新连接生效
       readTimeout: 60        # 修改后对新连接生效
