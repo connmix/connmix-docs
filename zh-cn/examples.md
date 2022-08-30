@@ -5,3 +5,4 @@
 CONNMIX 在各种语言、框架中的使用示例，开箱可用；
 
 - [WebSocket 视频弹幕](https://github.com/connmix/examples/tree/main/barrage-videos)
+- [WebSocket 用户消息中心](https://github.com/connmix/examples/tree/main/message-center)
