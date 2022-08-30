@@ -88,6 +88,17 @@ options
 | timeout | Number/String | Request timeout. Number of seconds or String such as "1h"                                                                            |
 | auth    | Table         | Username and password for HTTP basic auth. Table keys are *user* for username, *pass* for passwod. `auth={user="user", pass="pass"}` |
 
+response
+
+| Name        | Type   | Description                                                 |
+|-------------|--------|-------------------------------------------------------------|
+| body        | String | The HTTP response body                                      |
+| body_size   | Number | The size of the HTTP reponse body in bytes                  |
+| headers     | Table  | The HTTP response headers                                   |
+| cookies     | Table  | The cookies sent by the server in the HTTP response         |
+| status_code | Number | The HTTP response status code                               |
+| url         | String | The final URL the request ended pointing to after redirects |
+
 ## `mix.buffer`
 
 | 方法                   | 描述  |
