@@ -6,6 +6,8 @@
 
 - 通过 `-p` 来配置使用的 `cpus` 数量，超过许可证数量将导致 `engine` 节点无法启动。
 
+> 免费的8cpu授权，建议给center节点配置2cpu，engine节点配置6cpu
+
 ```shell
 % bin/connmix center -f conf/connmix.yaml -p 2
 
