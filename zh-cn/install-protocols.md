@@ -19,7 +19,7 @@ connmix 支持两种方式来解析网络通讯协议
 │       └── prettyprint.lua
 ```
 
-## 内置 `websocket` 协议
+## `websocket` 协议
 
 > protocol: websocket
 
