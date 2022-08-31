@@ -14,7 +14,7 @@ Request
 
 - `c` 客户端 client_id
 - `d` 发送的数据
-- `t` 消息类型: binary类型需要使用base64编码data，默认为text类型
+- `t` 消息类型: binary类型需要使用base64编码data (t=text,binary)
 
 ```json
 {
@@ -56,7 +56,7 @@ Request
 
 - `c` 通道
 - `d` 发送的数据
-- `t` 消息类型: binary类型需要使用base64编码data，默认为text类型
+- `t` 消息类型: binary类型需要使用base64编码data (t=text,binary)
 
 ```json
 {
@@ -378,7 +378,7 @@ Request
 
 - `c` 客户端 client_id
 - `d` 发送的数据
-- `t` 消息类型: binary类型需要使用base64编码data，默认为text类型
+- `t` 消息类型: binary类型需要使用base64编码data (t=text,binary)
 
 ```json
 {
@@ -424,7 +424,7 @@ Request
 
 - `c` 通道
 - `d` 发送的数据
-- `t` 消息类型: binary类型需要使用base64编码data，默认为text类型
+- `t` 消息类型: binary类型需要使用base64编码data (t=text,binary)
 
 ```json
 {

@@ -1,8 +1,9 @@
 # Lua API
 
+
 通过 connmix 内置的这些 lua 库，我们可以编写复杂的业务逻辑，同时也可以自定义网络通讯协议。
 
-## `mix`
+### `mix`
 
 | 方法                                       | 描述                                    |
 |------------------------------------------|---------------------------------------|
@@ -21,48 +22,51 @@
 | s = mix.sha1_bin(data)                   |                                       |
 | b = mix.log(mix.INFO, msg)               | mix.DEBUG,mix.INFO,mix.WARN,mix.ERROR |
 
-## `mix.server`
+### `mix.server`
 
-| 方法                                                   | 描述                         |
-|-------------------------------------------------------|-----------------------------|
-| s = mix.server.option(name)                           |                             |
+| 方法                          | 描述  |
+|-----------------------------|-----|
+| s = mix.server.option(name) |     |
 
-## `mix.conn`
+### `mix.conn`
 
-| 方法                           | 描述                    |
-|------------------------------|-----------------------|
-| conn, err = mix.websocket()  | websocket 协议获取用户端连接对象 |
-| conn, err = mix.socket.tcp() | custom 协议获取用户端连接对象    |
+| 协议        | 方法                           | 描述                    |
+|-----------|------------------------------|-----------------------|
+| socket    | conn, err = mix.socket.tcp() | socket协议获取用户端连接对象     |
+| websocket | conn, err = mix.websocket()  | websocket 协议获取用户端连接对象 |
 
-| 方法                                             | 描述        |
-|------------------------------------------------|-----------|
-| n = conn:client_id()                           |           |
-| s = conn:remote_addr()                         |           |
-| tb = conn:context()                            |           |
-| any = conn:context_value("key")                |           |
-| any = conn:wait_context_value("user_id")       | 阻塞等待返回值   |
-| conn:set_context({ user_id = 10000 })          | 可远程执行,本节点 |
-| conn:set_context_value("user_id", 10000)       | 可远程执行,本节点 |
-| err = conn:subscribe("channel1", "channel2")   | 可远程执行,本节点 |
-| err = conn:unsubscribe("channel1", "channel2") | 可远程执行,本节点 |
-| err = conn:send(data[, type])                  |           |
-| err = conn:close()                             |           |
-| conn:clear_buffer()                            |           |
+| 协议        | 方法                                             | 描述               |
+|-----------|------------------------------------------------|------------------|
+| all       | n = conn:client_id()                           |                  |
+| all       | s = conn:remote_addr()                         |                  |
+| all       | tb = conn:context()                            |                  |
+| all       | any = conn:context_value("key")                |                  |
+| all       | any = conn:wait_context_value("user_id")       | 阻塞等待返回值          |
+| all       | conn:set_context({ user_id = 10000 })          | 可远程执行,本节点        |
+| all       | conn:set_context_value("user_id", 10000)       | 可远程执行,本节点        |
+| all       | err = conn:subscribe("channel1", "channel2")   | 可远程执行,本节点        |
+| all       | err = conn:unsubscribe("channel1", "channel2") | 可远程执行,本节点        |
+| all       | err = conn:close()                             |                  |
+| socket    | conn:clear_buffer()                            |                  |
+| socket    | err = conn:send(data)                          |                  |
+| websocket | err = conn:send(data[, type])                  | type=text,binary |
 
-## `mix.mesh`
+### `mix.mesh`
 
-| 方法                                                    | 描述                          |
-|-------------------------------------------------------|-----------------------------|
-| err = mix.mesh.send(client_id, data[, type])          | 可远程执行,任意节点 (type=text,binary) |
-| success, fail = mix.mesh.publish(channel, data[, type]) | 可远程执行,任意节点 (type=text,binary) |
+| 协议        | 方法                                                      | 描述                            |
+|-----------|---------------------------------------------------------|-------------------------------|
+| socket    | err = mix.mesh.send(client_id, data)                    | 可远程执行，任意节点                    |
+| socket    | success, fail = mix.mesh.publish(channel, data)         | 可远程执行，任意节点                    |
+| websocket | err = mix.mesh.send(client_id, data[, type])            | 可远程执行，任意节点 (type=text,binary) |
+| websocket | success, fail = mix.mesh.publish(channel, data[, type]) | 可远程执行，任意节点 (type=text,binary) |
 
-## `mix.queue`
+### `mix.queue`
 
 | 方法                                   | 描述                                    |
 |--------------------------------------|---------------------------------------|
 | n, err = mix.queue.push(topic, data) | yaml中配置max,size                       |
 
-## `mix.redis`
+### `mix.redis`
 
 | 方法                                      | 描述                       |
 |-----------------------------------------|--------------------------|
@@ -72,7 +76,7 @@
 |-------------------------------------------------|--------------|
 | any, err = redis:command("set", "key", "value") |              |
 
-## `mix.http`
+### `mix.http`
 
 | 方法                                                    | 描述  |
 |-------------------------------------------------------|-----|
@@ -101,7 +105,7 @@ response
 | status_code | Number | The HTTP response status code                               |
 | url         | String | The final URL the request ended pointing to after redirects |
 
-## `mix.buffer`
+### `mix.buffer`
 
 | 方法                   | 描述  |
 |----------------------|-----|
