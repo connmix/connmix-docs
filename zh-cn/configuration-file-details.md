@@ -50,7 +50,7 @@ engine:
   servers:
     - port: 6790
       bind: 0.0.0.0
-      protocol: websocket    # (websocket,custom)
+      protocol: websocket    # (websocket,socket)
       options:
         - name: path
           value: /chat
