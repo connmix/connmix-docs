@@ -84,15 +84,14 @@
 
 options
 
-| Name    | Type          | Description                                                                                                                         |
-|---------|---------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| query   | String        | URL encoded query params                                                                                                            |
-| cookies | Table         | Additional cookies to send with the request                                                                                         |
-| body    | String        | Request body.                                                                                                                       |
-| form    | String        | Deprecated. URL encoded request body. This will also set the `Content-Type` header to `application/x-www-form-urlencoded`           |
-| headers | Table         | Additional headers to send with the request                                                                                         |
-| timeout | Number/String | Request timeout. Number of seconds or String such as "1h"                                                                           |
-| auth    | Table         | Username and password for HTTP basic auth. Table keys are *username*, *password*. `auth={username="username", password="password"}` |
+| Name    | Type          | Description                                                                       |
+|---------|---------------|-----------------------------------------------------------------------------------|
+| query   | String        | URL encoded query params                                                          |
+| cookies | Table         | Additional cookies to send with the request                                       |
+| body    | String        | Request body.                                                                     |
+| headers | Table         | Additional headers to send with the request                                       |
+| timeout | Number/String | Request timeout. Number of seconds or String such as "1h"                         |
+| auth    | Table         | Username and password for HTTP basic auth. Table keys are *username*, *password*. |
 
 response
 
