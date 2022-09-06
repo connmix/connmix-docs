@@ -12,6 +12,10 @@
   * [开发调试](zh-cn/start-debug.md)
   * [示例源码](zh-cn/examples.md)
 
+* 基础知识
+  
+  * [一天学会lua](zh-cn/learn-lua.md)
+
 * 引擎部署
 
   * [授权激活](zh-cn/license-activation.md)

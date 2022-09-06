@@ -2,11 +2,11 @@
 
 线上部署时，我们需要集群部署来支持更高的处理能力。
 
+> 免费的8cpu授权，建议给center节点配置2cpu，engine节点配置6cpu
+
 ## 部署 `center` 节点
 
 - 通过 `-p` 来配置使用的 `cpus` 数量，超过许可证数量将导致 `engine` 节点无法启动。
-
-> 免费的8cpu授权，建议给center节点配置2cpu，engine节点配置6cpu
 
 ```shell
 % bin/connmix center -f conf/connmix.yaml -p 2
@@ -55,4 +55,36 @@
 2022-04-22 01:32:00.263628      INFO    lua/registrycli.go:36   center registry 127.0.0.1:6786 connect successful
 2022-04-22 01:32:00.263661      INFO    lua/registrycli.go:76   register engine node_id c9gpa43in567ju39lab0
 2022-04-22 01:32:00.264456      INFO    lua/servers.go:96       start the lua server /Users/liujian/Documents/mycode/connmix/lua/entry.lua (0.0.0.0:6790)
+```
+
+## 配置反向代理 `nginx` 或 `SLB`
+
+使用 `nginx` 或者 `SLB` 代理到 `engine` 节点的端口即可
+
+- ws
+
+```
+server{
+    listen 80;
+    server_name www.demo.com;
+    location / {
+        proxy_pass http://127.0.0.1:6790;
+    }
+}
+```
+
+- wss
+
+`ssl` 需要在 `nginx`、`SLB` 中去实现
+
+```
+server{
+    listen 443 ssl;
+    server_name www.demo.com;
+    ssl_certificate /opt/nginx/ssl/demo.crt;
+    ssl_certificate_key /opt/nginx/ssl/demo.key; 
+    location / {
+        proxy_pass http://127.0.0.1:6790;
+    }
+}
 ```
