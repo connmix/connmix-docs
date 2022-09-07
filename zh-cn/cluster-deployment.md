@@ -32,7 +32,6 @@
 
 - 需要先启动 `center` 节点，才能成功启动 `engine` 节点。
 - 你可以启动任意个 `engine` 节点，只要在你的许可证数量之内。
-- 启动新的节点，无需重启 connmix sdk 进程，他们会自动发现新的节点。
 - 所有的 `engine` 节点的 `lua server` 端口是业务端口，你需要加入到 nginx 或 SLB 中对外提供服务。
 
 ```shell
@@ -59,7 +58,7 @@
 
 ## 配置反向代理 `nginx` 或 `SLB`
 
-使用 `nginx` 或者 `SLB` 代理到 `engine` 节点的端口即可
+使用 `nginx` 或者 `SLB` 代理到所有 `engine` 节点的端口即可。
 
 - ws
 
@@ -75,7 +74,7 @@ server{
 
 - wss
 
-`ssl` 需要在 `nginx`、`SLB` 中去实现
+`ssl` 需要在 `nginx`、`SLB` 中去实现。
 
 ```
 server{
