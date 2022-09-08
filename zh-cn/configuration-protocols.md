@@ -37,8 +37,8 @@ local mix_log = mix.log
 local mix_DEBUG = mix.DEBUG
 local mix_conn = mix.websocket
 
-function on_connect(client_id, headers)
-    mix_log(mix_DEBUG, "on_connect client_id: " .. client_id)
+function on_handshake(client_id, headers)
+    --mix_log(mix_DEBUG, "on_handshake client_id: " .. client_id)
 end
 
 function on_close(client_id, err)
@@ -76,8 +76,8 @@ function on_connect(client_id)
     mix_log(mix_DEBUG, "on_connect client_id: " .. client_id)
 end
 
-function on_handshake(headers)
-    --print(headers)
+function on_handshake(client_id, headers)
+    --mix_log(mix_DEBUG, "on_handshake client_id: " .. client_id)
 end
 
 function on_close(client_id, err)
