@@ -15,8 +15,19 @@ function foo()
     return 123, nil
 end
 
-function foo()
+function bar()
     return nil, "error msg"
+end
+```
+
+### 不等于 `~=`
+
+lua的不等于和其他语言都不同
+
+```lua
+local err = baz()
+if err ~= nil then
+    --错误处理
 end
 ```
 
