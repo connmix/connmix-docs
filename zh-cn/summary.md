@@ -1,7 +1,6 @@
 * 序言
   
   * [项目介绍](zh-cn/README.md)
-  * [工作原理](zh-cn/working-principle.md)
   * [技术交流](zh-cn/technical-communication.md)
 
 * 快速开始
@@ -13,7 +12,8 @@
   * [示例源码](zh-cn/examples.md)
 
 * 基础知识
-  
+
+  * [工作原理](zh-cn/working-principle.md)
   * [一天学会lua](zh-cn/learn-lua.md)
 
 * 引擎部署
