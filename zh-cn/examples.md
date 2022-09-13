@@ -1,6 +1,6 @@
 # 示例源码
 
-> `Star` https://github.com/connmix/examples 获取最新版本的示例
+> `Star` https://github.com/connmix/connmix-examples 获取最新版本的示例
 
 CONNMIX 各种使用示例，开箱可用；
 
