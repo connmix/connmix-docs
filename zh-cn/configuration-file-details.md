@@ -36,8 +36,8 @@ engine:
     writeTimeout: 60       # 修改后对新连接生效
   luavm:
     queue:
-      max: 100
-      size: 2000
+      topicSize: 2000
+      maxTopics: 100
     redis:
       - name: default
         addr: localhost:6379
