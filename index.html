@@ -48,7 +48,7 @@
         plugins: [
             function (hook, vm) {
                 hook.beforeEach(function (html) {
-                    url = 'https://github.com/connmix/docs/blob/main/' + vm.route.file;
+                    url = 'https://github.com/connmix/connmix-docs/blob/main/' + vm.route.file;
                     var editHtml = '<p style="text-align: right"><a href="' + url + '" target="_blank" rel="noopener"><img class="emoji" src="https://github.githubassets.com/images/icons/emoji/memo.png" alt="memo"> Edit on github</a></p>\n\n';
                     return (
                         editHtml +
