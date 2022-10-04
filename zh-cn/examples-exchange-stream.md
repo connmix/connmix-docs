@@ -27,6 +27,7 @@
 | 公有推送计算 mark_price           | 标记价格推送通常还包括指数价格，预估结算价，资金费率等信息，这些需要根据产品的公式计算好后推送到 channel: mark_price_\<symbol>                                                | java,php,go ... |
 | 公有推送计算 ticker               | 通常是记录24小时内开、高、低加上当前最新价格、量、额一起定时推送到 channel: ticker_\<symbol>                                                                  | java,php,go ... |
 | 公有推送计算 kline                | 该推送通常是在前端的TradingView内调用，由后端程序记录某个时间间隔内的开、高、低、收，定时推送到 channel: kline_\<symbol>                                                | java,php,go ... |
+| 私有推送登录设计                    | 只需在现有系统中增加一个给ws做登录的接口，返回对应uid即可                                                                                               | java,php,go ... |
 | 私有推送 balance、order、position | balance、order、position 变化信息都由撮合系统获取，从信息中提取出uid，然后分别发送到 channels: user_\<uid>_balance, user_\<uid>_order, user_\<uid>_position | java,php,go ... |
 | 私有推送 account                | account 变化通常是rest触发，从信息中提取出uid，然后发送到 channel:  user_\<uid>_account                                                            | java,php,go ... |
 
