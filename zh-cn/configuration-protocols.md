@@ -35,7 +35,6 @@ connmix 支持两种方式来解析网络通讯协议
 require("utils.prettyprint")
 local mix_log = mix.log
 local mix_DEBUG = mix.DEBUG
-local mix_conn = mix.websocket
 
 function on_handshake(client_id, headers)
     --mix_log(mix_DEBUG, "on_handshake client_id: " .. client_id)
@@ -47,7 +46,7 @@ end
 
 function on_message(msg)
    --print(msg)
-   local conn = mix_conn()
+   local conn = mix.websocket()
    conn:send('Hello,World!')
 end
 ```
@@ -70,7 +69,6 @@ require("utils.prettyprint")
 local mix_log = mix.log
 local mix_DEBUG = mix.DEBUG
 local websocket = require("protocols.websocket")
-local mix_conn = mix.socket.tcp
 
 function on_connect(client_id)
     mix_log(mix_DEBUG, "on_connect client_id: " .. client_id)
