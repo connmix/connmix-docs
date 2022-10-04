@@ -9,8 +9,12 @@
   * [修改配置](zh-cn/modify-configuration.md)
   * [配置协议](zh-cn/configuration-protocols.md)
   * [开发调试](zh-cn/start-debug.md)
-  * [示例源码](zh-cn/examples.md)
 
+* 示例源码
+
+  * [WebSocket 用户消息中心](zh-cn/examples-message-center.md)
+  * [WebSocket 视频弹幕](zh-cn/examples-barrage-videos.md)
+  
 * 基础知识
 
   * [工作原理](zh-cn/working-principle.md)
