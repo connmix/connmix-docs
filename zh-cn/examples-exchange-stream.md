@@ -58,3 +58,19 @@
 | position   | `@position`          | `<uid>@position`     |
 | account    | `@account`           | `<uid>@account`      |
 
+## 安装引擎
+
+- `connmix` [install-engine](zh-cn/install-engine)
+
+## 修改配置
+
+在 `connmix.yaml` 配置文件的 `options` 选项，修改websocket的url路径
+
+```
+options:
+  - name: path
+    value: /ws
+```
+
+## CONNMIX 编码
+
