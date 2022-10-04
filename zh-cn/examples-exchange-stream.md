@@ -19,17 +19,17 @@
 
 通过以下模块设计可见，CONNMIX 让需求设计变得更纯粹，程序员无需考虑用户连接处理，只需专注于业务逻辑。
 
-| 模块名                         | 描述                                                                                                                               | 工具              |
-|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------|-----------------|
-| 用户连接推送                      | 负责与用户连接，根据业务订阅某个通道，实现根据channel主动推送                                                                                               | CONNMIX         |
-| 公有推送计算 orderbook            | 定时获取撮合系统的book快照，对比后得出变化的档位，将计算结果推送到 channel: depth_\<symbol>                                                                     | java,php,go ... |
-| 公有推送计算 trades               | 通过UDP/TCP从撮合系统实时获取trades信息，降频合并后推送到 channel: trades_\<symbol>                                                                    | java,php,go ... |
-| 公有推送计算 mark_price           | 标记价格推送通常还包括指数价格，预估结算价，资金费率等信息，这些需要根据产品的公式计算好后推送到 channel: markprice_\<symbol>                                                    | java,php,go ... |
-| 公有推送计算 ticker               | 通常是记录24小时内开、高、低加上当前最新价格、量、额一起定时推送到 channel: ticker_\<symbol>                                                                     | java,php,go ... |
-| 公有推送计算 kline                | 该推送通常是在前端的TradingView内调用，由后端程序记录某个时间间隔内的开、高、低、收，定时推送到 channel: kline_\<symbol>                                                   | java,php,go ... |
-| 私有推送登录设计                    | 只需在现有系统中增加一个给ws做登录的接口，返回对应uid即可                                                                                                  | java,php,go ... |
-| 私有推送 balance、order、position | balance、order、position 变化信息都由撮合系统获取，从信息中提取出uid，然后分别发送到 channels: user_\<uid>\_balance, user_\<uid>\_order, user_\<uid>\_position | java,php,go ... |
-| 私有推送 account                | account 变化通常是rest触发，从信息中提取出uid，然后发送到 channel:  user_\<uid>_account                                                               | java,php,go ... |
+| 模块名                         | 描述                                                                                                                     | 工具              |
+|-----------------------------|------------------------------------------------------------------------------------------------------------------------|-----------------|
+| 用户连接推送                      | 负责与用户连接，根据业务订阅某个通道，实现根据channel主动推送                                                                                     | CONNMIX         |
+| 公有推送计算 orderbook            | 定时获取撮合系统的book快照，对比后得出变化的档位，将计算结果推送到 `depth_<symbol>`                                                                   | java,php,go ... |
+| 公有推送计算 trades               | 通过UDP/TCP从撮合系统实时获取trades信息，降频合并后推送到 `trades_<symbol>`                                                                  | java,php,go ... |
+| 公有推送计算 mark_price           | 标记价格推送通常还包括指数价格，预估结算价，资金费率等信息，这些需要根据产品的公式计算好后推送到 `markprice_<symbol>`                                                  | java,php,go ... |
+| 公有推送计算 ticker               | 通常是记录24小时内开、高、低加上当前最新价格、量、额一起定时推送到 `ticker_<symbol>`                                                                   | java,php,go ... |
+| 公有推送计算 kline                | 该推送通常是在前端的TradingView内调用，由后端程序记录某个时间间隔内的开、高、低、收，定时推送到 `kline_<symbol>`                                                 | java,php,go ... |
+| 私有推送登录设计                    | 只需在现有系统中增加一个给ws做登录的接口，返回对应uid即可                                                                                        | java,php,go ... |
+| 私有推送 balance、order、position | balance、order、position 变化信息都由撮合系统获取，从信息中提取出uid，然后分别发送到 `user_balance_<uid>`, `user_order_<uid>`, `user_position_<uid>` | java,php,go ... |
+| 私有推送 account                | account 变化通常是rest触发，从信息中提取出uid，然后发送到 `user_account_<uid>`                                                              | java,php,go ... |
 
 ## 交互协议设计
 
@@ -53,7 +53,7 @@
 | mark_price | `<symbol>@markPrice` | `markprice_<symbol>`  |
 | ticker     | `<symbol>@ticker`    | `ticker_<symbol>`     |
 | kline      | `<symbol>@kline`     | `kline_<symbol>`      |
-| balance    | `@balance`           | `user_<uid>_balance`  |
-| order      | `@order`             | `user_<uid>_order`    |
-| position   | `@position`          | `user_<uid>_position` |
-| account    | `@account`           | `user_<uid>_account`  |
+| balance    | `@balance`           | `user_balance_<uid>`  |
+| order      | `@order`             | `user_order_<uid>`    |
+| position   | `@position`          | `user_position_<uid>` |
+| account    | `@account`           | `user_account_<uid>`  |
