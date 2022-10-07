@@ -74,3 +74,44 @@ options:
 
 ## CONNMIX 编码
 
+修改 `entry.websocket.lua` 的 `on_message` 方法如下：
+
+```lua
+
+```
+
+## API 编码
+
+### WebSocket登录接口
+
+在现有系统的框架中编写一个登录信息验证接口 `/websocket_auth`，用于ws登录获取用户uid
+
+- 接口入参：token
+
+```json
+{"token":"***"}
+```
+
+- 接口出参：uid
+
+```json
+{"uid":1001}
+```
+
+### 内部消息推送
+
+在现有系统的框架中完成对应频道的主动消息推送
+
+- 可以在 spring、laravel 框架写的常驻程序中执行以下http请求完成推送
+- 如果发送请求非常频繁，可以改用 [websocket-api推送](zh-cn/websocket-api?id=%e7%bd%91%e6%a0%bc%e5%8f%91%e5%b8%83%ef%bc%9a%e5%8f%af%e4%bb%a5%e5%8f%91%e9%80%81%e7%bb%99%e6%95%b4%e4%b8%aa%e7%bd%91%e6%a0%bc%e5%86%85%e6%89%80%e6%9c%89%e8%ae%a2%e9%98%85%e4%ba%86%e8%bf%99%e4%ba%9b%e9%a2%91%e9%81%93%e7%9a%84%e5%ae%a2%e6%88%b7%e7%ab%af%e8%bf%9e%e6%8e%a5-1) 提升性能
+
+```
+curl --request POST 'http://127.0.0.1:6789/v1/mesh/publish' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "c": "1001@balance",
+    "d": "{\"event\":\"@balance\",\"data\":{\"uid\":1001,\"balance\":[{\"currency\":\"BTC\",\"available\":100,\"unavailable\":100}]}}"
+}'
+```
+
+## 测试
