@@ -69,7 +69,7 @@
 ```
 options:
   - name: path
-    value: /ws
+    value: /exchange-stream
 ```
 
 ## CONNMIX 编码
@@ -77,7 +77,98 @@ options:
 修改 `entry.websocket.lua` 的 `on_message` 方法如下：
 
 ```lua
+function on_message(msg)
+    --print(msg)
+    if msg["type"] ~= "text" then
+        conn:close()
+        return
+    end
 
+    local auth_url = "http://127.0.0.1:8000/websocket_auth" --填写解析token的api接口地址
+    local conn = mix.websocket()
+
+    local data, err = mix.json_decode(msg["data"])
+    if err then
+        mix_log(mix_DEBUG, "json_decode error: " .. err)
+        conn:close()
+        return
+    end
+
+    local op = data["op"]
+    local channel_raw = data["channel"]
+    local channel_table = mix.str_split(channel_raw, "@")
+    if table.getn(channel_table) ~= 2 then
+        mix_log(mix_DEBUG, "invalid channel: " .. channel_raw)
+        conn:close()
+        return
+    end
+    local channel_type = channel_table[2]
+
+    if op == "auth" then
+        local token = data["token"]
+        local resp, err = mix.http.request("POST", auth_url, {
+            body = '{"token:"' .. token .. '"}'
+        })
+        if err then
+            mix_log(mix_DEBUG, "http.request error: " .. err)
+            conn:close()
+            return
+        end
+        if resp.status_code ~= 200 then
+            mix_log(mix_DEBUG, "http.request status_code: " .. resp["status_code"])
+            conn:close()
+            return
+        end
+        local body_table, err = mix.json_decode(resp["body"])
+        if err then
+            mix_log(mix_DEBUG, "json_decode error: " .. err)
+            conn:close()
+            return
+        end
+        conn:set_context_value("uid", body_table["uid"])
+        return
+    end
+
+    local uid = conn:context_value("uid")
+    local inner_channel = ""
+    if channel_type == "depth" or channel_type == "trades" or channel_type == "markprice" or channel_type == "ticker" or channel_type == "kline" then
+        inner_channel = channel_raw
+    elseif channel_type == "balance" or channel_type == "order" or channel_type == "position" or channel_type == "account" then
+        inner_channel = string.format("%d@%s", uid, channel_type)
+    else
+        mix_log(mix_DEBUG, "invalid channel_type")
+        conn:close()
+        return
+    end
+
+    if op == "subscribe" then
+        if uid == nil then
+            conn:send('{"code":1,"msg":"Not Auth"}')
+            return
+        end
+        local err = conn:subscribe(inner_channel)
+        if err then
+            mix_log(mix_DEBUG, "subscribe error: " .. err)
+            conn:close()
+            return
+        end
+    end
+
+    if op == "unsubscribe" then
+        if uid == nil then
+            conn:send('{"code":1,"msg":"Not Auth"}')
+            return
+        end
+        local err = conn:unsubscribe(inner_channel)
+        if err then
+            mix_log(mix_DEBUG, "unsubscribe error: " .. err)
+            conn:close()
+            return
+        end
+    end
+
+    conn:send('{"result":true}')
+end
 ```
 
 ## API 编码
@@ -115,3 +206,13 @@ curl --request POST 'http://127.0.0.1:6789/v1/mesh/publish' \
 ```
 
 ## 测试
+
+使用 [wstool](http://www.easyswoole.com/wstool.html) 进行测试
+
+- 连接 `ws://127.0.0.1:6790/exchange-stream`
+- 发送 `{"op":"auth","token":"***"}`
+- 接收到 `{"result":true}`
+- 发送 `{"op":"subscribe","channel":"@balance"}`
+- 接收到 `{"result":true}`
+- 执行 curl 主动推送
+- 接收到 `{"event":"@balance","data":{"uid":1001,"balance":["currency":"BTC","available":100,"unavailable":100]}}`
