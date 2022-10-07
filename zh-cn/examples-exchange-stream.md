@@ -215,4 +215,4 @@ curl --request POST 'http://127.0.0.1:6789/v1/mesh/publish' \
 - 发送 `{"op":"subscribe","channel":"@balance"}`
 - 接收到 `{"result":true}`
 - 执行 curl 主动推送
-- 接收到 `{"event":"@balance","data":{"uid":1001,"balance":["currency":"BTC","available":100,"unavailable":100]}}`
+- 接收到 `{"event":"@balance","data":{"uid":1001,"balance":[{"currency":"BTC","available":100,"unavailable":100}]}}`
