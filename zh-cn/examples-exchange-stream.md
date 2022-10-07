@@ -105,7 +105,6 @@ function on_message(msg)
         conn:close()
         return
     end
-    local channel_type = channel_table[2]
 
     if op == "auth" then
         local token = data["token"]
@@ -133,23 +132,24 @@ function on_message(msg)
     end
 
     local uid = conn:context_value("uid")
+    local channel_type = channel_table[2]
     local inner_channel = ""
-    if channel_type == "depth" or channel_type == "trades" or channel_type == "markprice" or channel_type == "ticker" or channel_type == "kline" then
-        inner_channel = channel_raw
-    elseif channel_type == "balance" or channel_type == "order" or channel_type == "position" or channel_type == "account" then
-        inner_channel = string.format("%d@%s", uid, channel_type)
-    else
-        mix_log(mix_DEBUG, "invalid channel_type")
-        conn:close()
-        return
-    end
-
-    if op == "subscribe" then
+    if channel_type == "balance" or channel_type == "order" or channel_type == "position" or channel_type == "account" then
+        --需要登录才可订阅
         if uid == nil then
             conn:send('{"code":1,"msg":"Not Auth"}')
             return
         end
-        local err = conn:subscribe(inner_channel)
+        inner_channel = string.format("%d@%s", uid, channel_type)
+    else
+        inner_channel = channel_raw
+    end
+    
+    --为了安全而设定前缀
+    local prefix = "ex:"
+
+    if op == "subscribe" then
+        local err = conn:subscribe(prefix .. inner_channel)
         if err then
             mix_log(mix_DEBUG, "subscribe error: " .. err)
             conn:close()
@@ -158,11 +158,7 @@ function on_message(msg)
     end
 
     if op == "unsubscribe" then
-        if uid == nil then
-            conn:send('{"code":1,"msg":"Not Auth"}')
-            return
-        end
-        local err = conn:unsubscribe(inner_channel)
+        local err = conn:unsubscribe(prefix .. inner_channel)
         if err then
             mix_log(mix_DEBUG, "unsubscribe error: " .. err)
             conn:close()
@@ -203,7 +199,7 @@ end
 curl --request POST 'http://127.0.0.1:6789/v1/mesh/publish' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "c": "1001@balance",
+    "c": "ex:1001@balance",
     "d": "{\"event\":\"@balance\",\"data\":{\"uid\":1001,\"balance\":[{\"currency\":\"BTC\",\"available\":100,\"unavailable\":100}]}}"
 }'
 ```
