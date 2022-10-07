@@ -76,6 +76,9 @@ options:
 
 修改 `entry.websocket.lua` 的 `on_message` 方法如下：
 
+- 当消息为auth类型时，调用 `auth_url` 接口通过token获取到uid，并保存到context中
+- 当消息为subscribe、unsubscribe时，从context取出uid拼接到内部通道，执行订阅/取消订阅对应的通道
+
 ```lua
 function on_message(msg)
     --print(msg)
