@@ -64,7 +64,7 @@ function on_message(msg)
 
     local op = data["op"]
     if op == nil then
-        mix_log(mix_DEBUG, "invalid op: nil")
+        mix_log(mix_DEBUG, "op is nil")
         conn:close()
         return
     end
