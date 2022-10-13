@@ -63,7 +63,15 @@ function on_message(msg)
     end
 
     local op = data["op"]
+    if op == nil then
+        mix_log(mix_DEBUG, "invalid op: nil")
+        conn:close()
+        return
+    end
     local channel_raw = data["channel"]
+    if channel_raw == nil then
+        channel_raw = ""
+    end
     local channel_table = mix.str_split(channel_raw, "@")
     if table.getn(channel_table) ~= 2 then
         mix_log(mix_DEBUG, "invalid channel: " .. channel_raw)

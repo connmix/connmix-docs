@@ -67,7 +67,11 @@ function on_message(msg)
     end
 
     local op = data["op"]
-
+    if op == nil then
+        mix_log(mix_DEBUG, "invalid op: nil")
+        conn:close()
+        return
+    end
     if op == "auth" then
         local token = data["token"]
         local resp, err = mix.http.request("POST", auth_url, {
