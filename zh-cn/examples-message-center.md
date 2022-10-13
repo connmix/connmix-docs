@@ -77,6 +77,10 @@ function on_message(msg)
         if token == nil then
             token = ""
         end
+        -- x-www-form-urlencoded
+        -- body = 'token=' .. token
+        -- application/json
+        -- body = '{"token:"' .. token .. '"}'
         local resp, err = mix.http.request("POST", auth_url, {
             body = '{"token:"' .. token .. '"}'
         })
