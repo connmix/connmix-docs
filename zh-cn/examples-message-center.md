@@ -67,14 +67,6 @@ function on_message(msg)
     end
 
     local op = data["op"]
-    local channel_raw = data["channel"]
-    local channel_table = mix.str_split(channel_raw, "@")
-    if table.getn(channel_table) ~= 2 then
-        mix_log(mix_DEBUG, "invalid channel: " .. channel_raw)
-        conn:close()
-        return
-    end
-    local channel_type = channel_table[2]
 
     if op == "auth" then
         local token = data["token"]
@@ -102,6 +94,17 @@ function on_message(msg)
     end
 
     local uid = conn:context_value("uid")
+    local channel_raw = data["channel"]
+    if channel_raw == nil then
+        channel_raw = ""
+    end
+    local channel_table = mix.str_split(channel_raw, "@")
+    if table.getn(channel_table) ~= 2 then
+        mix_log(mix_DEBUG, "invalid channel: " .. channel_raw)
+        conn:close()
+        return
+    end
+    local channel_type = channel_table[2]
 
     if op == "subscribe" and channel_type == "user" then
         if uid == nil then
