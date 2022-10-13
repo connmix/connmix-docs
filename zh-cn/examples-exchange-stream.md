@@ -105,6 +105,9 @@ function on_message(msg)
     end
     if op == "auth" then
         local token = data["token"]
+        if token == nil then
+            token = ""
+        end
         local resp, err = mix.http.request("POST", auth_url, {
             body = '{"token:"' .. token .. '"}'
         })
