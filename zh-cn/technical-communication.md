@@ -2,8 +2,7 @@
 
 敲门暗号：`connmix`
 
-- OpenMix 技术交流 A 群: [284806582](https://shang.qq.com/wpa/qunwpa?idkey=b3a8618d3977cda4fed2363a666b081a31d89e3d31ab164497f53b72cf49968a) 
-- OpenMix 技术交流 B 群: [825122875](http://shang.qq.com/wpa/qunwpa?idkey=d2908b0c7095fc7ec63a2391fa4b39a8c5cb16952f6cfc3f2ce4c9726edeaf20)
+- QQ群: [323877697](https://qm.qq.com/cgi-bin/qm/qr?k=Iu26zXgJkFpIlPJBBPcm_d62XheVXNY8&jump_from=webapi&authKey=fUmqdZZrHaspdTTPmVvSLTybiYcYI8ykg7VK3hodv/T/QAOvD3WhsE/skTgiy2lO)
 
 ## 作者
 

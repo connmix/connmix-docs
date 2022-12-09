@@ -87,3 +87,25 @@ server{
     }
 }
 ```
+
+## 常见问题
+
+### 客户端连接 `60s` 后就断线
+
+这是由 `connmix.yaml` 的 `readTimeout` 配置项控制的，该配置项是为了节约服务器资源，`nginx`、`SLB` 也有类似的配置项，因此在生产环境你修改了此配置后可能依旧还会遇到该问题，正确的做法应该在客户端做ping/pong心跳处理。
+
+```
+  servers:
+    - port: 6790
+      bind: 0.0.0.0
+      protocol: websocket    # (websocket,socket)
+      options:
+        - name: path
+          value: /chat
+      entry: lua/entry.websocket.lua
+      byteCodeExpires: 10    # 设置0关闭热更新
+      readBufferSize: 1024   # 修改后对新连接生效
+      writeBufferSize: 1024  # 修改后对新连接生效
+      readTimeout: 60        # 修改后对新连接生效
+      writeTimeout: 10       # 修改后对新连接生效
+```
