@@ -20,6 +20,7 @@
 * 基础知识
 
   * [工作原理](zh-cn/working-principle.md)
+  * [PubSub 发布订阅](zh-cn/pubsub.md)
   * [一天学会lua](zh-cn/learn-lua.md)
 
 * 引擎部署
