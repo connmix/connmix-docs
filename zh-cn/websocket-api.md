@@ -161,6 +161,7 @@ Error
 
 Event
 
+- `n` 节点 node_id
 - `c` 客户端 client_id
 - `t` 消息来自哪个 topic
 - `d` 消息的数据
@@ -169,6 +170,7 @@ Event
 {
   "e": "queue.pop",
   "p": {
+    "n": 1,
     "c": "1463819408261513216",
     "t": "topic1",
     "d": {
@@ -177,8 +179,7 @@ Event
         "type": "text",
         "data": "json str",
         "finish": true
-      },
-      "uid": "100001"
+      }
     }
   },
   "id": null
