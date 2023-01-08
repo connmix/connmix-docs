@@ -174,7 +174,6 @@ Event
     "c": "1463819408261513216",
     "t": "topic1",
     "d": {
-      "event": "message",
       "frame": {
         "type": "text",
         "data": "json str",
