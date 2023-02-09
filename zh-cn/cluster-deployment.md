@@ -94,10 +94,10 @@ server{
 
 ## 在 `k8s` 中部署
 
-在k8s中部署我们需要部署两个服务: `center`、`engine`
+在k8s中部署我们需要部署两个服务：
 
-- `center` 在 `Dockerfile` 中暴露6786、6787端口，只可以启动1个pod。
-- `engine` 在 `Dockerfile` 中暴露6788、6789端口，加上配置文件 `servers` 字段下面全部的端口，同时将 `centerRegistry` 字段修改为 `center` 服务的k8s内网地址，可启动任意pod数量。
+- `center`：在 `Dockerfile` 中暴露6786、6787端口，只可以启动1个pod。
+- `engine`：在 `Dockerfile` 中暴露6788、6789端口，加上配置文件 `servers` 字段下面全部的端口，同时将 `centerRegistry` 字段修改为 `center` 服务的k8s内网地址，可启动任意pod数量。
 
 ## 常见问题
 
