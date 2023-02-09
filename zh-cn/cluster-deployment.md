@@ -125,7 +125,7 @@ spec:
 
 这是由 `connmix.yaml` 的 `readTimeout` 配置项控制的，该配置项是为了节约服务器资源，`nginx`、`SLB` 也有类似的配置项，因此在生产环境你修改了此配置后可能依旧还会遇到该问题，正确的做法应该在客户端做ping/pong心跳处理。
 
-```
+```yaml
   servers:
     - port: 6790
       bind: 0.0.0.0
