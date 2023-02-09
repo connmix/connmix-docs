@@ -4,7 +4,11 @@
 
 > 免费的8cpu授权，建议给center节点配置2cpu，engine节点配置6cpu
 
-## 部署 `center` 节点
+## 传统部署
+
+当采用 aliyun ecs, aws ec2 等服务器直接部署。
+
+### 部署 `center` 节点
 
 - 通过 `-p` 来配置使用的 `cpus` 数量，超过许可证数量将导致 `engine` 节点无法启动。
 
@@ -28,7 +32,7 @@
 2022-04-22 01:31:51.686621      INFO    registry/server.go:42   start the registry server (0.0.0.0:6786)
 ```
 
-## 部署 `engine` 节点
+### 部署 `engine` 节点
 
 - 需要先启动 `center` 节点，才能成功启动 `engine` 节点。
 - 你可以启动任意个 `engine` 节点，只要在你的许可证数量之内。
@@ -56,7 +60,7 @@
 2022-04-22 01:32:00.264456      INFO    lua/servers.go:96       start the lua server /Users/liujian/Documents/mycode/connmix/lua/entry.lua (0.0.0.0:6790)
 ```
 
-## 配置反向代理 `nginx` 或 `SLB`
+### 配置反向代理 `nginx` 或 `SLB`
 
 使用 `nginx` 或者 `SLB` 代理到所有 `engine` 节点的端口即可。
 
@@ -87,6 +91,13 @@ server{
     }
 }
 ```
+
+## 在 `k8s` 中部署
+
+在k8s中部署我们需要部署两个服务: `center`、`engine`
+
+- `center` 在 `Dockerfile` 中暴露6786、6787端口，只可以启动1个pod。
+- `engine` 在 `Dockerfile` 中暴露6788、6789端口，加上配置文件 `servers` 字段下面全部的端口，同时将 `centerRegistry` 字段修改为 `center` 服务的k8s内网地址，可启动任意pod数量。
 
 ## 常见问题
 
