@@ -96,9 +96,28 @@ server{
 
 在k8s中部署我们需要部署两个服务：
 
-- `center` 服务：在 `Dockerfile` 中暴露6786、6787端口，只可以启动1个pod。
-- `engine` 服务：在 `Dockerfile` 中暴露6788、6789端口，加上配置文件 `servers` 字段下面全部的端口，同时将 `centerRegistry` 字段修改为 `center` 服务的k8s内网地址，可启动任意pod数量。
+- `connmix-center` 服务：在 `Dockerfile` 中暴露6786、6787端口，只可以启动1个pod。
+- `connmix-engine` 服务：在 `Dockerfile` 中暴露6788、6789端口，加上配置文件 `servers` 字段下面全部的端口，同时将 `centerRegistry` 字段修改为 `center` 服务的k8s内网地址，可启动任意pod数量。
 - 在 `ingress-nginx` 或者你使用的其他微服务网关中，将 `engine` 服务名称、 `servers` 字段下你配置的业务端口和对应的url path配置到 `ingress.yaml` 中的 `rules` 字段里。
+
+```
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress
+  namespace: test
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: www.test.com                  #域名
+    http:
+      paths:
+      - path: /chat
+        backend:
+          serviceName: connmix-engine   #关联service
+          servicePort: 6790             #关联service的映射端口
+```
 
 ## 常见问题
 
