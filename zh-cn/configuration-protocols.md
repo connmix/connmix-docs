@@ -2,7 +2,7 @@
 
 connmix 支持两种方式来解析网络通讯协议
 
-- 内置协议：`websocket` 后续还会支持 `mqtt`
+- 内置协议：`websocket`
 - 自定义协议：`socket`
 
 `lua` 目录存放了全部的网络通讯协议脚本
@@ -27,7 +27,7 @@ connmix 支持两种方式来解析网络通讯协议
 
 - 打开入口文件 `lua\entry.websocket.lua`
 - `prettyprint` 是 lua 生态的一个库，很多lua生态的库可以直接使用
-- websocket 协议 lua 入口文件都必须包含这些方法：`on_connect`、`on_close`、`on_message`
+- websocket 协议 lua 入口文件都必须包含这些方法：`on_handshake`、`on_close`、`on_message`
 - 我们可以像写代码一样在入口文件中编写业务处理的逻辑，其中 `mix.` 前缀的内置包名是 connmix 提供的 Lua API，可以使用它完成很多高级开发。
 - 在 `on_message` 方法中我们可以处理收到的用户消息，例如：将消息push到redis，或者订阅某个channel来实现主动推送。
 
