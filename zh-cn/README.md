@@ -1,6 +1,6 @@
 ## 简介
 
-CONNMIX 是一个基于 go 与 lua 的分布式长连接引擎，可快速开发高性能分布式 Socket、WebSocket、MQTT 服务，可以像 openresty(ngx_lua) 一样使用 lua 编程，可快速接入到 java,php,go,nodejs,py,c# 等任意编程语言开发的现有系统。
+CONNMIX 是一个基于 go 与 lua 的分布式长连接引擎，可快速开发高性能分布式 Socket、WebSocket 长连接服务，可以像 openresty(ngx_lua) 一样使用 lua 编程，可快速接入到 java,php,go,nodejs,py,c# 等任意编程语言开发的现有系统。
 
 ## 使用场景
 
