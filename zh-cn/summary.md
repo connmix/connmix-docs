@@ -17,10 +17,11 @@
   * [WebSocket 数字交易所行情系统](zh-cn/examples-exchange-stream.md)
   * [社区项目展示](zh-cn/examples-thirdparty.md)
 
-* 基础知识
+* 进阶知识
 
   * [工作原理](zh-cn/working-principle.md)
   * [PubSub 发布订阅](zh-cn/pubsub.md)
+  * [Prometheus 监控](zh-cn/prometheus.md)
   * [一天学会lua](zh-cn/learn-lua.md)
 
 * 引擎部署

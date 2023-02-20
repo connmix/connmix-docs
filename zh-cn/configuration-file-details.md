@@ -8,6 +8,12 @@ logging:
   maxFiles: 7
   level: debug # (debug,info,warn,error) 修改后生效
 
+prometheus:
+  summary:
+    maxAge: 600
+    ageBuckets: 5
+    bufCap: 500
+
 licenses:
   activationCode:
   server: https://connmix.com
