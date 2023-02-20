@@ -22,7 +22,7 @@ center:
   registry:
     port: 6786
     bind: 0.0.0.0
-  server:
+  apiServer:
     port: 6787
     bind: 0.0.0.0
 
