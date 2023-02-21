@@ -33,47 +33,68 @@
 
 ## 编写服务端逻辑
 
-示范一个聊天室主动推送Demo，修改 `entry.websocket.lua` 文件 `on_message` 方法的内容如下：
+示范一个聊天室Demo，修改 `entry.websocket.lua` 文件 `on_message` 方法的内容如下：
 
-- 当用户发送 `{"room_id":1002}` 我们就给该连接订阅 `room:1002` 通道
+- 当用户发送 `{"op":"join","room_id":1002}` 就给该连接订阅 `room:1002` 通道。
+- 当用户发送 `{"op":"send","msg":"Hello,World!"}` 就给加入的通道发送对应消息。
 
 > 通过 [Lua API](/zh-cn/lua-api) 我们可以编写各种复杂的业务逻辑
 
 ```lua
 function on_message(msg)
-	--print(msg)
-
-	local tb, err = mix.json_decode(msg["data"])
-	if err then
-		mix_log(mix_DEBUG, "json_decode error: " .. err)
-		return
-	end
-	if tb["room_id"] == nil then
-		return
-	end
-
-	local conn = mix.websocket()
-	conn:subscribe("room:" .. tb["room_id"])
-	conn:send('{"status":"success"}')
+    --参数解析
+    local tb, err = mix.json_decode(msg["data"])
+    if err then
+        mix_log(mix_DEBUG, "json_decode error: " .. err)
+        return
+    end
+    local conn = mix.websocket()
+    local op = tb["op"]
+    local room_id = tb["room_id"]
+    local msg = tb["msg"]
+    if op == nil then
+        return
+    end
+	
+    --加入房间逻辑
+    if op == "join" then
+        if room_id == nil then
+            return
+        end
+        conn:subscribe("room:" .. room_id)
+        conn:set_context_value("room_id", room_id) --保存加入的房间ID
+        conn:send('{"status":"success"}') 
+    end
+	
+    --发送消息逻辑
+    if op == "send" then
+        if msg == nil then
+            return
+        end
+        local client_id = conn:client_id()
+        room_id = conn:context_value("room_id") -- 取出之前保存的房间ID
+        mix.mesh.publish("room:" .. room_id, '{"client_id":"' .. client_id .. '","msg":"' .. msg .. '"}')
+    end
 end
 ```
 
-- 接下来我们只需要在服务端给任意一个节点的 ApiServer 发送一下HTTP请求，就可以给该room发送消息。
+- 消息广播：只需要在服务端给任意一个节点的 ApiServer 发送一下HTTP请求，就可以给该room发送广播消息。
 
 ```shell
 curl --location --request POST 'http://127.0.0.1:6789/v1/mesh/publish' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "c": "room:1212",
-    "d": "{\"msg\":\"Hello,World!\"}"
+    "c": "room:1002",
+    "d": "{\"type\":\"broadcast\",\"msg\":\"Hello,World!\"}"
 }'
 ```
 
 ## 测试
 
-- 使用websocket测试工具连接 `ws://127.0.0.1:6790/chat`
-- 连接成功，并向该连接发送消息 `{"room_id":1212}`
-- 我们将会收到回复 `{"status":"success"}` 表示加入房间成功
-- 调用 `curl` 主动推送后，房间内的所有人将会收到消息 `{"msg":"Hello,World!"}`
-
-![](images/图3.jpg)
+- `连接` 使用websocket测试工具连接 `ws://127.0.0.1:6790/chat`
+- `发送` 发送消息 `{"op":"join","room_id":1002}`
+- `接收` 收到回复 `{"status":"success"}` 表示加入房间成功
+- `发送` 发送消息 `{"op":"send","msg":"Hello,World!"}`
+- `接收` 收到消息 `{"client_id":"1627581697287520263","msg":"Hello,World!"}`
+- `广播` 执行curl命令给通道 `room:1002` 发送消息
+- `接收` 收到消息 `{"type":"broadcast","msg":"Hello,World!"}`
