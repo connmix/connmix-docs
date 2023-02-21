@@ -31,7 +31,7 @@
 
 我们的入口文件 `lua/entry.websocket.lua` 执行的服务在 `6790` 端口，采用的是 `websocket` 协议。
 
-## 编写服务端业务逻辑
+## 编写服务端逻辑
 
 示范一个聊天室主动推送Demo，修改 `entry.websocket.lua` 文件 `on_message` 方法的内容如下：
 
