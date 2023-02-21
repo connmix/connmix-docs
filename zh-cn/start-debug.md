@@ -74,6 +74,7 @@ function on_message(msg)
         local client_id = conn:client_id()
         room_id = conn:context_value("room_id") -- 取出之前保存的房间ID
         mix.mesh.publish("room:" .. room_id, '{"client_id":"' .. client_id .. '","msg":"' .. msg .. '"}')
+        conn:send('{"status":"success"}') 
     end
 end
 ```
@@ -95,6 +96,7 @@ curl --location --request POST 'http://127.0.0.1:6789/v1/mesh/publish' \
 - `发送` 发送消息 `{"op":"join","room_id":1002}`
 - `接收` 收到回复 `{"status":"success"}` 表示加入房间成功
 - `发送` 发送消息 `{"op":"send","msg":"Hello,World!"}`
-- `接收` 收到消息 `{"client_id":"1627581697287520263","msg":"Hello,World!"}`
+- `接收` 收到回复 `{"status":"success"}` 表示发送成功
+- `接收` 房间所有人收到消息 `{"client_id":"1627581697287520263","msg":"Hello,World!"}`
 - `广播` 执行curl命令给通道 `room:1002` 发送消息
-- `接收` 收到消息 `{"type":"broadcast","msg":"Hello,World!"}`
+- `接收` 房间所有人收到消息 `{"type":"broadcast","msg":"Hello,World!"}`
