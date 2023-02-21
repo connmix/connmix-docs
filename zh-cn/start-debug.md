@@ -1,3 +1,5 @@
+# Hello World 快速入门
+
 ## 启动引擎
 
 在开发阶段，我们使用 `dev` 模式，该模式会把 Center、Engine 两种节点一同启动，同时**无需授权**也拥有2CPU的执行能力。
@@ -29,12 +31,13 @@
 
 我们的入口文件 `lua/entry.websocket.lua` 执行的服务在 `6790` 端口，采用的是 `websocket` 协议。
 
-## 编写业务逻辑
+## 编写服务端业务逻辑
 
-为了简单明了，这里示范一个实现聊天室主动推送的方法。
+示范一个聊天室主动推送Demo，修改 `entry.websocket.lua` 文件 `on_message` 方法的内容如下：
 
 - 当用户发送 `{"room_id":1002}` 我们就给该连接订阅 `room:1002` 通道
-- 通过 [Lua API](/zh-cn/lua-api) 我们可以编写各种复杂的业务逻辑
+
+> 通过 [Lua API](/zh-cn/lua-api) 我们可以编写各种复杂的业务逻辑
 
 ```lua
 function on_message(msg)
@@ -49,13 +52,13 @@ function on_message(msg)
 		return
 	end
 
-	local conn = mix_conn()
+	local conn = mix.websocket()
 	conn:subscribe("room:" .. tb["room_id"])
 	conn:send('{"status":"success"}')
 end
 ```
 
-- 接下来我们只需要给任意一个节点的 ApiServer 发送一下HTTP请求，就可以给该room发送消息。
+- 接下来我们只需要在服务端给任意一个节点的 ApiServer 发送一下HTTP请求，就可以给该room发送消息。
 
 ```shell
 curl --location --request POST 'http://127.0.0.1:6789/v1/mesh/publish' \
@@ -68,11 +71,9 @@ curl --location --request POST 'http://127.0.0.1:6789/v1/mesh/publish' \
 
 ## 测试
 
-- 使用工具：http://www.easyswoole.com/wstool.html
-- 我们连接 `ws://127.0.0.1:6790/chat`
+- 使用websocket测试工具连接 `ws://127.0.0.1:6790/chat`
 - 连接成功，并向该连接发送消息 `{"room_id":1212}`
 - 我们将会收到回复 `{"status":"success"}` 表示加入房间成功
 - 调用 curl 主动推送后，房间内的所有人将会收到消息 `{"msg":"Hello,World!"}`
 
 ![](images/图3.jpg)
-

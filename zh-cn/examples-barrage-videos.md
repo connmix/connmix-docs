@@ -2,9 +2,11 @@
 
 使用 WebSocket 制作一个单机版弹幕系统非常简单，但是当单机性能达到瓶颈，需要扩展为集群部署时就会面临很多分布式问题，使用 [CONNMIX](https://connmix.com/) 则无需担心这些问题，很少的代码即可完成一个高性能分布式WebSocket集群。
 
-## 要求
+## 前置条件
 
-- [connmix](https://connmix.com/) >= v1.0.4
+- [安装引擎](/zh-cn/install-engine.md)
+- [快速入门](/zh-cn/start-debug.md)
+- [Pubsub](/zh-cn/pubsub.md)
 
 ## 设计思路
 

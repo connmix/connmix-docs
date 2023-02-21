@@ -8,7 +8,7 @@
   * [安装引擎](zh-cn/install-engine.md)
   * [修改配置](zh-cn/modify-configuration.md)
   * [配置协议](zh-cn/configuration-protocols.md)
-  * [开发调试](zh-cn/start-debug.md)
+  * [Hello World 快速入门](zh-cn/start-debug.md)
 
 * 示例源码
 

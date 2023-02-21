@@ -4,9 +4,11 @@
 
 [CONNMIX](https://connmix.com/) 是一个基于 go 与 lua 的分布式长连接引擎，可以在短时间内搭建一个高性能交易所行情推送系统。
 
-## 要求
+## 前置条件
 
-- [connmix](https://connmix.com/) >= v1.0.4
+- [安装引擎](/zh-cn/install-engine.md)
+- [快速入门](/zh-cn/start-debug.md)
+- [Pubsub](/zh-cn/pubsub.md)
 
 ## 需求分析
 

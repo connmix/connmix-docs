@@ -2,9 +2,11 @@
 
 使用 WebSocket 做消息中心，通常做法是采用kafka、redis等中间件搭配实现，使用 [CONNMIX](https://connmix.com/) 则无需使用中间件，同时分布式集群能力也无需担忧用户量大增后带来的性能问题。
 
-## 要求
+## 前置条件
 
-- [connmix](https://connmix.com/) >= v1.0.4
+- [安装引擎](/zh-cn/install-engine.md)
+- [快速入门](/zh-cn/start-debug.md)
+- [Pubsub](/zh-cn/pubsub.md)
 
 ## 设计思路
 
