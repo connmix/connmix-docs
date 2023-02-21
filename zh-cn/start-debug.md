@@ -76,7 +76,7 @@ function on_message(msg)
     
     --退出房间逻辑
     if op == "quit" then
-        local current_room_id = conn:context_value("current_room_id") -- 取出之前保存的房间ID
+        local current_room_id = conn:context_value("current_room_id") --取出之前保存的房间ID
         conn:unsubscribe("room:" .. current_room_id)
         conn:send('{"status":"success"}') 
     end
@@ -87,7 +87,7 @@ function on_message(msg)
             return
         end
         local client_id = conn:client_id()
-        local current_room_id = conn:context_value("current_room_id") -- 取出之前保存的房间ID
+        local current_room_id = conn:context_value("current_room_id") --取出之前保存的房间ID
         mix.mesh.publish("room:" .. room_id, '{"client_id":"' .. client_id .. '","msg":"' .. msg .. '"}')
         conn:send('{"status":"success"}') 
     end
