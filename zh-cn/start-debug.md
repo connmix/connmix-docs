@@ -36,7 +36,8 @@
 示范一个聊天室Demo，修改 `entry.websocket.lua` 文件 `on_message` 方法的内容如下：
 
 - 当用户发送 `{"op":"join","room_id":1002}` 就给该连接订阅 `room:1002` 通道。
-- 当用户发送 `{"op":"send","msg":"Hello,World!"}` 就给加入的通道发送对应消息。
+- 当用户发送 `{"op":"send","msg":"Hello,World!"}` 就给当前通道发送消息。
+- 当用户发送 `{"op":"quit"}` 就给该连接取消订阅当前通道。
 
 > 通过 [Lua API](/zh-cn/lua-api) 我们可以编写各种复杂的业务逻辑
 
@@ -61,8 +62,25 @@ function on_message(msg)
         if room_id == nil then
             return
         end
+        
+        --只允许同时加入一个房间
+        local current_room_id = conn:context_value("current_room_id")
+        if current_room_id != nil then
+            conn:unsubscribe("room:" .. current_room_id)
+        end
+        
         conn:subscribe("room:" .. room_id)
-        conn:set_context_value("room_id", room_id) --保存加入的房间ID
+        conn:set_context_value("current_room_id", room_id) --保存加入的房间ID
+        conn:send('{"status":"success"}')
+    end
+    
+    --退出房间逻辑
+    if op == "quit" then
+        if room_id == nil then
+            return
+        end
+        local current_room_id = conn:context_value("current_room_id") -- 取出之前保存的房间ID
+        conn:unsubscribe("room:" .. room_id)
         conn:send('{"status":"success"}') 
     end
 	
@@ -72,7 +90,7 @@ function on_message(msg)
             return
         end
         local client_id = conn:client_id()
-        room_id = conn:context_value("room_id") -- 取出之前保存的房间ID
+        local current_room_id = conn:context_value("current_room_id") -- 取出之前保存的房间ID
         mix.mesh.publish("room:" .. room_id, '{"client_id":"' .. client_id .. '","msg":"' .. msg .. '"}')
         conn:send('{"status":"success"}') 
     end
