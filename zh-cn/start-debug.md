@@ -94,7 +94,7 @@ function on_message(msg)
 end
 ```
 
-- 消息广播：只需要在服务端给任意一个节点的 ApiServer 发送一下HTTP请求，就可以给该room发送广播消息。
+- 发送广播：只需要在服务端给任意一个节点的 ApiServer 发送一下HTTP请求，就可以给该room发送广播消息。
 
 ```shell
 curl --location --request POST 'http://127.0.0.1:6789/v1/mesh/publish' \
@@ -113,5 +113,5 @@ curl --location --request POST 'http://127.0.0.1:6789/v1/mesh/publish' \
 - `发送` 发送消息 `{"op":"send","msg":"Hello,World!"}`
 - `接收` 收到回复 `{"status":"success"}` 表示发送成功
 - `接收` 房间内所有人收到消息 `{"client_id":"1627581697287520263","msg":"Hello,World!"}`
-- `广播` 执行curl命令给通道 `room:1002` 发送消息
+- `广播` 执行curl命令给通道 `room:1002` 发送广播
 - `接收` 房间内所有人收到消息 `{"type":"broadcast","msg":"Hello,World!"}`
