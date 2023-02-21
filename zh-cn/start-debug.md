@@ -76,11 +76,8 @@ function on_message(msg)
     
     --退出房间逻辑
     if op == "quit" then
-        if room_id == nil then
-            return
-        end
         local current_room_id = conn:context_value("current_room_id") -- 取出之前保存的房间ID
-        conn:unsubscribe("room:" .. room_id)
+        conn:unsubscribe("room:" .. current_room_id)
         conn:send('{"status":"success"}') 
     end
 	
