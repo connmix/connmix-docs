@@ -56,31 +56,31 @@ function on_message(msg)
     if op == nil then
         return
     end
-	
+
     --加入房间逻辑
     if op == "join" then
         if room_id == nil then
             return
         end
-        
+
         --只允许同时加入一个房间
         local current_room_id = conn:context_value("current_room_id")
-        if current_room_id != nil then
+        if current_room_id ~= nil then
             conn:unsubscribe("room:" .. current_room_id)
         end
-        
+
         conn:subscribe("room:" .. room_id)
         conn:set_context_value("current_room_id", room_id) --保存加入的房间ID
         conn:send('{"status":"success"}')
     end
-    
+
     --退出房间逻辑
     if op == "quit" then
         local current_room_id = conn:context_value("current_room_id") --取出之前保存的房间ID
         conn:unsubscribe("room:" .. current_room_id)
-        conn:send('{"status":"success"}') 
+        conn:send('{"status":"success"}')
     end
-	
+
     --发送消息逻辑
     if op == "send" then
         if msg == nil then
@@ -88,8 +88,8 @@ function on_message(msg)
         end
         local client_id = conn:client_id()
         local current_room_id = conn:context_value("current_room_id") --取出之前保存的房间ID
-        mix.mesh.publish("room:" .. room_id, '{"client_id":"' .. client_id .. '","msg":"' .. msg .. '"}')
-        conn:send('{"status":"success"}') 
+        conn:send('{"status":"success"}')
+        mix.mesh.publish("room:" .. current_room_id, '{"client_id":"' .. client_id .. '","msg":"' .. msg .. '"}')
     end
 end
 ```
@@ -115,3 +115,5 @@ curl --location --request POST 'http://127.0.0.1:6789/v1/mesh/publish' \
 - `接收` 房间内所有人收到消息 `{"client_id":"1627581697287520263","msg":"Hello,World!"}`
 - `广播` 执行curl命令给通道 `room:1002` 发送广播
 - `接收` 房间内所有人收到消息 `{"type":"broadcast","msg":"Hello,World!"}`
+- `退出` 发送消息 `{"op":"quit"}`
+- `接收` 收到回复 `{"status":"success"}` 表示退出成功，将不会接收新的消息
