@@ -120,7 +120,7 @@ curl --request POST 'http://127.0.0.1:6789/v1/mesh/publish' \
 
 ## 测试
 
-使用 [wstool](http://www.easyswoole.com/wstool.html) 进行测试
+使用websocket测试工具连接进行测试
 
 - 连接 `ws://127.0.0.1:6790/barrage-videos`
 - 发送 `{"op":"subscribe","channel":"100001@video"}`

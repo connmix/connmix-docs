@@ -182,7 +182,7 @@ curl --request POST 'http://127.0.0.1:6789/v1/mesh/publish' \
 
 ## 测试
 
-使用 [wstool](http://www.easyswoole.com/wstool.html) 进行测试
+使用websocket测试工具连接进行测试
 
 - 连接 `ws://127.0.0.1:6790/message-center`
 - 发送 `{"op":"auth","token":"***"}`
