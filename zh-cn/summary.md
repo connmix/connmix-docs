@@ -5,7 +5,7 @@
 
 * 快速开始
 
-  * [安装引擎](zh-cn/install-engine.md)
+  * [安装网关](zh-cn/install-engine.md)
   * [修改配置](zh-cn/modify-configuration.md)
   * [配置协议](zh-cn/configuration-protocols.md)
   * [Hello World 快速入门](zh-cn/start-debug.md)
@@ -24,7 +24,7 @@
   * [Prometheus 监控](zh-cn/prometheus.md)
   * [一天学会lua](zh-cn/learn-lua.md)
 
-* 引擎部署
+* 网关部署
 
   * [授权许可](zh-cn/license-activation.md)
   * [集群部署](zh-cn/cluster-deployment.md)

@@ -2,10 +2,10 @@
 
 ## 前置条件
 
-- [安装引擎](/zh-cn/install-engine.md)
+- [安装网关](/zh-cn/install-engine.md)
 - [Pubsub](/zh-cn/pubsub.md)
 
-## 启动引擎
+## 启动网关
 
 在开发阶段，我们使用 `dev` 模式，该模式会把 Center、Engine 两种节点一同启动，同时**无需授权**也拥有2CPU的执行能力。
 

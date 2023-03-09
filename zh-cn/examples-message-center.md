@@ -4,7 +4,7 @@
 
 ## 前置条件
 
-- [安装引擎](/zh-cn/install-engine.md)
+- [安装网关](/zh-cn/install-engine.md)
 - [快速入门](/zh-cn/start-debug.md)
 - [Pubsub](/zh-cn/pubsub.md)
 

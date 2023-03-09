@@ -2,11 +2,11 @@
 
 数字货币交易所近些年逐步成熟，和以前的蛮荒时代不同，技术上越来越先进，虽然区块链是去中心化的，但是交易所是中心化的系统，和互联网行业没有任何区别；和传统金融业的保守不同，WebSocket 在数字货币交易所被普遍使用在行情系统中，通常用于Web/App实时获取行情、指数、用户成交等交易相关信息；
 
-[CONNMIX](https://connmix.com/) 是一个基于 go 与 lua 的分布式长连接引擎，可以在短时间内搭建一个高性能交易所行情推送系统。
+[CONNMIX](https://connmix.com/) 是一个基于 go 与 lua 的分布式长连接网关，可以在短时间内搭建一个高性能交易所行情推送系统。
 
 ## 前置条件
 
-- [安装引擎](/zh-cn/install-engine.md)
+- [安装网关](/zh-cn/install-engine.md)
 - [快速入门](/zh-cn/start-debug.md)
 - [Pubsub](/zh-cn/pubsub.md)
 
