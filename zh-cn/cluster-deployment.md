@@ -2,13 +2,23 @@
 
 线上部署时，我们需要集群部署来支持更高的处理能力。
 
-> 免费的8cpu授权，建议给center节点配置2cpu，engine节点配置6cpu
-
-## 传统部署
+## 标准部署
 
 当采用 aliyun ecs, aws ec2 等服务器直接部署。
 
-### 部署 `center` 节点
+### 单机部署
+
+创业公司业务量不大时，可以将 `center` 和 `engine` 节点在同一个进程启动，等后续业务扩展再采用集群部署。
+
+```shell
+% bin/connmix single -f conf/connmix.yaml
+```
+
+### 集群部署
+
+> 免费的8cpu授权，建议给center节点配置2cpu，engine节点配置6cpu
+
+#### 部署 `center` 节点
 
 - 通过 `-p` 来配置使用的 `cpus` 数量，超过许可证数量将导致 `engine` 节点无法启动。
 
@@ -32,7 +42,7 @@
 2022-04-22 01:31:51.686621      INFO    registry/server.go:42   start the registry server (0.0.0.0:6786)
 ```
 
-### 部署 `engine` 节点
+#### 部署 `engine` 节点
 
 - 需要先启动 `center` 节点，才能成功启动 `engine` 节点。
 - 你可以启动任意个 `engine` 节点，只要在你的许可证数量之内。
