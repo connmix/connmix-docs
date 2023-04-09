@@ -9,8 +9,8 @@
 
 ```yaml
 licenses:
-  activationCode: ***
-  server: https://connmix.com
+  activationCode: ***             # 不支持热更新
+  server: https://connmix.com     # 支持热更新
 ```
 
 ## 离线授权
