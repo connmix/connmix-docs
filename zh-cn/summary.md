@@ -27,7 +27,7 @@
 * 网关部署
 
   * [授权许可](zh-cn/license-activation.md)
-  * [集群部署](zh-cn/cluster-deployment.md)
+  * [生产部署](zh-cn/deployment.md)
   * [配置文件详解](zh-cn/configuration-file-details.md)
 
 * API
