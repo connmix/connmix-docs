@@ -32,7 +32,7 @@ err = conn:subscribe("channel1")
 success, fail = mix.mesh.publish("channel1", "Hello,World!")
 ```
 
-- The server-side can use Java, PHP, Go, Node.js, Python, C#, or any other language to proactively push messages through the API request. You can also use [websocket-api push](en-us/websocket-api) to improve performance.
+- The server-side can use Java, PHP, Go, Node.js, Python, C#, or any other language to proactively push messages through the API request. You can also use [websocket-api push](en-us/websocket-api?id=grid-publishing-it-can-be-sent-to-all-client-connections-that-have-subscribed-to-these-channels-in-the-entire-grid-1) to improve performance.
 
 ```bash
 curl --request POST 'http://127.0.0.1:6789/v1/mesh/publish' \
