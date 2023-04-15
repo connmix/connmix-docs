@@ -6,7 +6,7 @@
 logging:
   filename: logs/connmix.log
   maxFiles: 7
-  level: debug # (debug,info,warn,error) 修改后生效
+  level: debug # (debug,info,warn,error) Takes effect after modification
 
 prometheus:
   summary:
@@ -36,10 +36,10 @@ engine:
     bind: 0.0.0.0
     username:
     password:
-    readBufferSize: 40096  # 修改后对新连接生效
-    writeBufferSize: 40096 # 修改后对新连接生效
-    readTimeout: 60        # 修改后对新连接生效
-    writeTimeout: 60       # 修改后对新连接生效
+    readBufferSize: 40096  # Takes effect for new connections after modification
+    writeBufferSize: 40096 # Takes effect for new connections after modification
+    readTimeout: 60        # Takes effect for new connections after modification
+    writeTimeout: 60       # Takes effect for new connections after modification
   luavm:
     queue:
       topicSize: 2000
@@ -61,9 +61,9 @@ engine:
         - name: path
           value: /chat
       entry: lua/entry.websocket.lua
-      byteCodeExpires: 10    # 设置0关闭热更新
-      readBufferSize: 1024   # 修改后对新连接生效
-      writeBufferSize: 1024  # 修改后对新连接生效
-      readTimeout: 60        # 修改后对新连接生效
-      writeTimeout: 10       # 修改后对新连接生效
+      byteCodeExpires: 10    # Set to 0 to disable hot updates
+      readBufferSize: 1024   # Takes effect for new connections after modification
+      writeBufferSize: 1024  # Takes effect for new connections after modification
+      readTimeout: 60        # Takes effect for new connections after modification
+      writeTimeout: 10       # Takes effect for new connections after modification
 ```
