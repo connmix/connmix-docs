@@ -54,7 +54,7 @@ function on_message(msg)
          return
      end
 
-     local auth_url = "http://127.0.0.1:8000/websocket_auth" -- fill in the api interface address for parsing token
+     local auth_url = "http://127.0.0.1:8000/websocket_auth" --fill in the api interface address for parsing token
      local conn = mix. websocket()
 
      local data, err = mix.json_decode(msg["data"])
@@ -75,9 +75,9 @@ function on_message(msg)
          if token == nil then
              token = ""
          end
-         -- x-www-form-urlencoded
+         --x-www-form-urlencoded
          -- body = 'token=' .. token
-         -- application/json
+         --application/json
          -- body = '{"token:"' .. token .. '"}'
          local resp, err = mix.http.request("POST", auth_url, {
              body = '{"token:"' .. token .. '"}'
