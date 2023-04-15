@@ -15,12 +15,11 @@
   * [WebSocket User Message Center](en-us/examples-message-center.md)
   * [WebSocket Video Barrage](en-us/examples-barrage-videos.md)
   * [WebSocket Digital Exchange Quotation System](en-us/examples-exchange-stream.md)
-  * [Community Project Showcase](en-us/examples-thirdparty.md)
 
 * Advanced Knowledge
 
   * [Working Principle](en-us/working-principle.md)
-  * [PubSub Publish-Subscribe](en-us/pubsub.md)
+  * [PubSub](en-us/pubsub.md)
   * [Prometheus Monitoring](en-us/prometheus.md)
   * [Learn Lua in One Day](en-us/learn-lua.md)
 

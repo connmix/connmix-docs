@@ -1,4 +1,4 @@
-# PubSub Publish-Subscribe
+# PubSub
 
 "Publish/Subscribe" is a message-handling model, generally used for abstracting long-lasting business logic. Commonly used middleware such as `redis` and `kafka` support this messaging mode. `CONNMIX` provides PubSub support within the service mesh.
 
