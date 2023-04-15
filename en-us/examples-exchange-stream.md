@@ -7,8 +7,8 @@ Digital currency exchanges have gradually matured in recent years. Unlike the pr
 ## Preconditions
 
 - [Install Gateway](/en-us/install-engine.md)
-- [Quick Start](/en-us/start-debug.md)
 - [Pubsub](/en-us/pubsub.md)
+- [Quick Start](/en-us/start-debug.md)
 
 ## demand analysis
 

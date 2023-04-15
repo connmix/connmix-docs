@@ -5,8 +5,8 @@ Using WebSocket as a message center is usually implemented by using middleware s
 ## Preconditions
 
 - [Install Gateway](/en-us/install-engine.md)
-- [Quick Start](/en-us/start-debug.md)
 - [Pubsub](/en-us/pubsub.md)
+- [Quick Start](/en-us/start-debug.md)
 
 ## Design ideas
 

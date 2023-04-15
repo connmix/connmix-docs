@@ -5,8 +5,8 @@ It is very simple to use WebSocket to make a stand-alone barrage system, but whe
 ## Preconditions
 
 - [Install Gateway](/en-us/install-engine.md)
-- [Quick Start](/en-us/start-debug.md)
 - [Pubsub](/en-us/pubsub.md)
+- [Quick Start](/en-us/start-debug.md)
 
 ## Design ideas
 
