@@ -15,8 +15,8 @@
   * [WebSocket 用户消息中心](zh-cn/examples-message-center.md)
   * [WebSocket 视频弹幕](zh-cn/examples-barrage-videos.md)
   * [WebSocket 数字交易所行情系统](zh-cn/examples-exchange-stream.md)
-  * [社区项目展示](zh-cn/examples-thirdparty.md)
   * [常见问题](zh-cn/faq.md)
+  * [社区项目展示](zh-cn/examples-thirdparty.md)
 
 * 进阶知识
 
