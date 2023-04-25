@@ -13,7 +13,7 @@
 | s, err = mix.php_pack(format, args+)     |                                       |
 | tb, err = mix.php_unpack(format, data)   |                                       |
 | tb = mix.str_split(str, sep)             |                                       |
-| tb, err = mix.url_parse(url)             |                                       |
+| tb, err = mix.parse_str(url)             |                                       |
 | s = mix.bytes_tostring(bytes_table)      |                                       |
 | s = mix.md5(data)                        |                                       |
 | s = mix.md5_bin(data)                    |                                       |

@@ -36,7 +36,7 @@ require("utils.prettyprint")
 local mix_log = mix.log
 local mix_DEBUG = mix.DEBUG
 
-function on_handshake(client_id, headers)
+function on_handshake(client_id, headers, server)
     --mix_log(mix_DEBUG, "on_handshake client_id: " .. client_id)
 end
 
@@ -74,7 +74,7 @@ function on_connect(client_id)
     mix_log(mix_DEBUG, "on_connect client_id: " .. client_id)
 end
 
-function on_handshake(client_id, headers)
+function on_handshake(client_id, headers, server)
     --mix_log(mix_DEBUG, "on_handshake client_id: " .. client_id)
 end
 
