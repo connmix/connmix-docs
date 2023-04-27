@@ -7,8 +7,9 @@
 ```lua
 function on_handshake(client_id, headers, server)
     print(server)
-    tb, err = mix.parse_url(server["RequestUri"])
+    local tb, err = mix.parse_url(server["RequestUri"])
     print(tb, err)
+    local foo = tb["query"]["foo"] // bar
 end
 ```
 
