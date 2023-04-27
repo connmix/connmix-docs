@@ -9,7 +9,7 @@ function on_handshake(client_id, headers, server)
     print(server)
     local tb, err = mix.parse_url(server["RequestUri"])
     print(tb, err)
-    local foo = tb["query"]["foo"] // bar
+    local foo = tb["query"]["foo"] --bar
 end
 ```
 
