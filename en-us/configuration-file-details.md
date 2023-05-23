@@ -18,6 +18,15 @@ licenses:
   activationCode:
   server: https://connmix.com
 
+access: # Takes effect after modification
+  users:
+#    - username: user
+#      password: pass
+#      roles:
+#        - read
+#        - write
+#      host: * # 172.*.*.*
+
 center:
   registry:
     port: 6786
@@ -34,8 +43,6 @@ engine:
   apiServer:
     port: 6789
     bind: 0.0.0.0
-    username:
-    password:
     readBufferSize: 40096  # Takes effect for new connections after modification
     writeBufferSize: 40096 # Takes effect for new connections after modification
     readTimeout: 60        # Takes effect for new connections after modification

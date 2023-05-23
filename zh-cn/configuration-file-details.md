@@ -6,7 +6,7 @@
 logging:
   filename: logs/connmix.log
   maxFiles: 7
-  level: debug # (debug,info,warn,error) 修改后生效
+  level: debug # (debug,info,warn,error) 修改后立即生效
 
 prometheus:
   summary:
@@ -17,6 +17,15 @@ prometheus:
 licenses:
   activationCode:
   server: https://connmix.com
+
+access: # 修改后立即生效
+  users:
+#    - username: user
+#      password: pass
+#      roles:
+#        - read
+#        - write
+#      host: * # 172.*.*.*
 
 center:
   registry:
@@ -34,8 +43,6 @@ engine:
   apiServer:
     port: 6789
     bind: 0.0.0.0
-    username:
-    password:
     readBufferSize: 40096  # 修改后对新连接生效
     writeBufferSize: 40096 # 修改后对新连接生效
     readTimeout: 60        # 修改后对新连接生效
