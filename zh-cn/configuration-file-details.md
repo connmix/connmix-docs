@@ -25,7 +25,7 @@ access: # 修改后立即生效
 #      roles:
 #        - read
 #        - write
-#      host: * # 172.*.*.*
+#      host: '*' # 172.*.*.*
 
 center:
   registry:

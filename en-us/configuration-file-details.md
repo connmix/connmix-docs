@@ -25,7 +25,7 @@ access: # Takes effect after modification
 #      roles:
 #        - read
 #        - write
-#      host: * # 172.*.*.*
+#      host: '*' # 172.*.*.*
 
 center:
   registry:
