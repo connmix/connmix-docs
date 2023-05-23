@@ -42,3 +42,24 @@ end
 }
 ```
 
+### 如何安全的在公网使用控制台
+
+在 `connmix.yaml` 配置文件中，我们可以单独配置一个只读账户给控制台使用，而程序内部使用读写账户并限制内网ip段，然后就可以安全的将 `center` 和 `engine` 的 `apiServer` 端口暴露在公网中，这样控制台就可以正常连接使用了。 
+
+> 如果有成熟的运维团队，我们推荐在内网使用控制台，或者使用prometheus
+
+```yaml
+access: # 修改后立即生效
+  users:
+    - username: user1
+      password: pass1
+      roles:
+        - read
+      host: *
+    - username: user2
+      password: pass2
+      roles:
+        - read
+        - write
+      host: 172.*.*.*
+```
