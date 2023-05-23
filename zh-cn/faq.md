@@ -55,7 +55,7 @@ access: # 修改后立即生效
       password: pass1
       roles:
         - read
-      host: *
+      host: '*'
     - username: user2
       password: pass2
       roles:
