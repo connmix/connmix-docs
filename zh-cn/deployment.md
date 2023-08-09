@@ -82,6 +82,9 @@ server{
     server_name www.demo.com;
     location / {
         proxy_pass http://127.0.0.1:6790;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
     }
 }
 ```
@@ -98,6 +101,9 @@ server{
     ssl_certificate_key /opt/nginx/ssl/demo.key; 
     location / {
         proxy_pass http://127.0.0.1:6790;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
     }
 }
 ```
